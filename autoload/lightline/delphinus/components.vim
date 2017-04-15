@@ -2,20 +2,34 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T20:06:56+0900.
+" Last Change: 2017-04-15T20:36:57+0900.
 " =============================================================================
 
 scriptencoding utf-8
 
+if g:lightline_delphinus_use_nerd_fonts_glyphs
+  let s:mo_glyph = ''
+  let s:help_glyph = ''
+else
+  let s:mo_glyph = '+'
+  let s:help_glyph = '?'
+endif
+
+if g:lightline_delphinus_use_powerline_glyphs
+  let s:ro_glyph = ''
+else
+  let s:ro_glyph = 'RO'
+endif
+
 function! lightline#delphinus#components#modified() abort
   return &filetype =~# 'help\|vimfiler\|gundo' ? '' :
-        \ &modified ? '' : &modifiable ? '' :
+        \ &modified ? s:mo_glyph : &modifiable ? '' :
         \ '-'
 endfunction
 
 function! lightline#delphinus#components#readonly() abort
-  return &filetype ==# 'help' ? '' :
-        \ &filetype !~# 'vimfiler\|gundo' && &readonly ? '' :
+  return &filetype ==# 'help' ? s:help_glyph :
+        \ &filetype !~# 'vimfiler\|gundo' && &readonly ? s:ro_glyph :
         \ ''
 endfunction
 

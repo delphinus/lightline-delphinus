@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T20:08:32+0900.
+" Last Change: 2017-04-15T20:37:20+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -14,6 +14,17 @@ let g:loaded_lightline_delphinus = 1
 
 let s:save_cpo = &cpoptions
 set cpoptions&vim
+
+let g:lightline_delphinus_use_powerline_glyphs = get(g:, 'lightline_delphinus_use_powerline_glyphs', 0)
+let g:lightline_delphinus_use_nerd_fonts_glyphs = get(g:, 'lightline_delphinus_use_nerd_fonts_glyphs', 0)
+
+if g:lightline_delphinus_use_powerline_glyphs
+  let s:separator = {'left': '', 'right': ''}
+  let s:subseparator = {'left': '', 'right': ''}
+else
+  let s:separator = {'left': '', 'right': ''}
+  let s:subseparator = {'left': '|', 'right': '|'}
+endif
 
 let g:lightline = {
         \ 'colorscheme': 'solarized_improved',
@@ -51,8 +62,8 @@ let g:lightline = {
         \   'ale_warning': 'warning',
         \   'ale_ok':      'ok',
         \ },
-        \ 'separator': { 'left': '', 'right': '' },
-        \ 'subseparator': { 'left': '', 'right': '' },
+        \ 'separator': s:separator,
+        \ 'subseparator': s:subseparator,
         \ }
 
 augroup LightLineOnALE
