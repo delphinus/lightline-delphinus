@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T16:26:54+0900.
+" Last Change: 2017-04-15T16:31:00+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -16,7 +16,7 @@ let s:save_cpo = &cpoptions
 set cpoptions&vim
 
 let g:lightline = {
-        \ 'colorscheme': 'solarized_custom',
+        \ 'colorscheme': 'solarized_improved',
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filepath' ], [ 'filename' ] ],

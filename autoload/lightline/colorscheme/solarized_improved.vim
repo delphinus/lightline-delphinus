@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/colorscheme/solarized_improved.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T16:14:37+0900.
+" Last Change: 2017-04-15T16:33:33+0900.
 " =============================================================================
 
 let s:cuicolors = {
@@ -137,4 +137,4 @@ let s:p.insert.ok       = s:insert[6:6]
 let s:p.replace.ok      = s:replace[6:6]
 let s:p.visual.ok       = s:visual[6:6]
 
-let g:lightline#colorscheme#solarized_improved = lightline#colorscheme#flatten(s:p)
+let g:lightline#colorscheme#solarized_improved#palette = lightline#colorscheme#flatten(s:p)
