@@ -1,26 +1,26 @@
 " =============================================================================
-" Filename: autoload/lightline_delphinus/components.vim
+" Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T16:39:15+0900.
+" Last Change: 2017-04-15T20:06:56+0900.
 " =============================================================================
 
 scriptencoding utf-8
 
-function! lightline_delphinus#components#modified() abort
+function! lightline#delphinus#components#modified() abort
   return &filetype =~# 'help\|vimfiler\|gundo' ? '' :
         \ &modified ? '' : &modifiable ? '' :
         \ '-'
 endfunction
 
-function! lightline_delphinus#components#readonly() abort
+function! lightline#delphinus#components#readonly() abort
   return &filetype ==# 'help' ? '' :
         \ &filetype !~# 'vimfiler\|gundo' && &readonly ? '' :
         \ ''
 endfunction
 
-function! lightline_delphinus#components#filepath() abort
-  let l:ro_string = '' !=# lightline_delphinus#components#readonly() ? lightline_delphinus#components#readonly() . ' ' : ''
+function! lightline#delphinus#components#filepath() abort
+  let l:ro_string = '' !=# lightline#delphinus#components#readonly() ? lightline#delphinus#components#readonly() . ' ' : ''
   if &filetype ==# 'vimfilter' || &filetype ==# 'unite' || winwidth(0) < 70
     let l:path_string = ''
   else
@@ -33,14 +33,14 @@ function! lightline_delphinus#components#filepath() abort
   return l:ro_string . l:path_string
 endfunction
 
-function! lightline_delphinus#components#filename() abort
+function! lightline#delphinus#components#filename() abort
   return (&filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
         \  &filetype ==# 'unite' ? unite#get_status_string() :
         \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
-        \ ('' !=# lightline_delphinus#components#modified() ? ' ' . lightline_delphinus#components#modified() : '')
+        \ ('' !=# lightline#delphinus#components#modified() ? ' ' . lightline#delphinus#components#modified() : '')
 endfunction
 
-function! lightline_delphinus#components#fugitive() abort
+function! lightline#delphinus#components#fugitive() abort
   if winwidth(0) < 100
     return ''
   endif
@@ -53,19 +53,19 @@ function! lightline_delphinus#components#fugitive() abort
   return ''
 endfunction
 
-function! lightline_delphinus#components#fileformat() abort
+function! lightline#delphinus#components#fileformat() abort
   return winwidth(0) > 120 ? &fileformat . (exists('*WebDevIconsGetFileFormatSymbol') ? ' ' . WebDevIconsGetFileFormatSymbol() : '') : ''
 endfunction
 
-function! lightline_delphinus#components#filetype() abort
+function! lightline#delphinus#components#filetype() abort
   return winwidth(0) > 120 ? (strlen(&filetype) ? &filetype . (exists('*WebDevIconsGetFileTypeSymbol') ? ' ' . WebDevIconsGetFileTypeSymbol() : '') : 'no ft') : ''
 endfunction
 
-function! lightline_delphinus#components#fileencoding() abort
+function! lightline#delphinus#components#fileencoding() abort
   return winwidth(0) > 120 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
-function! lightline_delphinus#components#mode() abort
+function! lightline#delphinus#components#mode() abort
   let l:fname = expand('%:t')
   return l:fname =~# 'unite' ? 'Unite' :
         \ l:fname =~# 'vimfiler' ? 'VimFilter' :
@@ -73,7 +73,7 @@ function! lightline_delphinus#components#mode() abort
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
-function! lightline_delphinus#components#charcode() abort
+function! lightline#delphinus#components#charcode() abort
   if winwidth(0) <= 120
     return ''
   endif
@@ -82,15 +82,15 @@ function! lightline_delphinus#components#charcode() abort
   return len(l:m) > 0 ? printf('%s %X', l:m[1], l:m[2]) : ''
 endfunction
 
-function! lightline_delphinus#components#ale_error() abort
+function! lightline#delphinus#components#ale_error() abort
   return s:ale_string(0)
 endfunction
 
-function! lightline_delphinus#components#ale_warning() abort
+function! lightline#delphinus#components#ale_warning() abort
   return s:ale_string(1)
 endfunction
 
-function! lightline_delphinus#components#ale_ok() abort
+function! lightline#delphinus#components#ale_ok() abort
   return s:ale_string(2)
 endfunction
 

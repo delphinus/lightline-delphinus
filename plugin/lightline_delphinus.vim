@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T16:31:00+0900.
+" Last Change: 2017-04-15T20:08:32+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -27,24 +27,24 @@ let g:lightline = {
         \   ],
         \ },
         \ 'component_function': {
-        \   'modified':     'lightline_delphinus#components#modified',
-        \   'readonly':     'lightline_delphinus#components#readonly',
-        \   'fugitive':     'lightline_delphinus#components#fugitive',
-        \   'filepath':     'lightline_delphinus#components#filepath',
-        \   'filename':     'lightline_delphinus#components#filename',
-        \   'fileformat':   'lightline_delphinus#components#fileformat',
-        \   'filetype':     'lightline_delphinus#components#filetype',
-        \   'fileencoding': 'lightline_delphinus#components#fileencoding',
-        \   'mode':         'lightline_delphinus#components#mode',
-        \   'char_code':    'lightline_delphinus#components#charcode',
+        \   'modified':     'lightline#delphinus#components#modified',
+        \   'readonly':     'lightline#delphinus#components#readonly',
+        \   'fugitive':     'lightline#delphinus#components#fugitive',
+        \   'filepath':     'lightline#delphinus#components#filepath',
+        \   'filename':     'lightline#delphinus#components#filename',
+        \   'fileformat':   'lightline#delphinus#components#fileformat',
+        \   'filetype':     'lightline#delphinus#components#filetype',
+        \   'fileencoding': 'lightline#delphinus#components#fileencoding',
+        \   'mode':         'lightline#delphinus#components#mode',
+        \   'char_code':    'lightline#delphinus#components#charcode',
         \ },
         \ 'component_function_visible_condition': {
         \   'mode': 1,
         \ },
         \ 'component_expand': {
-        \   'ale_error':   'lightline_delphinus#components#ale_error',
-        \   'ale_warning': 'lightline_delphinus#components#ale_warning',
-        \   'ale_ok':      'lightline_delphinus#components#ale_ok',
+        \   'ale_error':   'lightline#delphinus#components#ale_error',
+        \   'ale_warning': 'lightline#delphinus#components#ale_warning',
+        \   'ale_ok':      'lightline#delphinus#components#ale_ok',
         \ },
         \ 'component_type': {
         \   'ale_error':   'error',
