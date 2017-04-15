@@ -2,10 +2,18 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T16:23:18+0900.
+" Last Change: 2017-04-15T16:26:54+0900.
 " =============================================================================
 
 scriptencoding utf-8
+
+if exists('g:loaded_lightline_delphinus')
+  finish
+endif
+let g:loaded_lightline_delphinus = 1
+
+let s:save_cpo = &cpoptions
+set cpoptions&vim
 
 let g:lightline = {
         \ 'colorscheme': 'solarized_custom',
@@ -51,3 +59,6 @@ augroup LightLineOnALE
   autocmd!
   autocmd User ALELint call lightline#update()
 augroup END
+
+let &cpoptions = s:save_cpo
+unlet s:save_cpo
