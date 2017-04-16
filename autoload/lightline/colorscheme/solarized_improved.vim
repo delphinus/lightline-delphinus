@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/colorscheme/solarized_improved.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T16:33:33+0900.
+" Last Change: 2017-04-16T11:47:17+0900.
 " =============================================================================
 
 let s:cuicolors = {
@@ -60,6 +60,62 @@ if &background ==# 'light'
   let [ s:base02, s:base2 ] = [ s:base2, s:base02 ]
   let [ s:base01, s:base1 ] = [ s:base1, s:base01 ]
   let [ s:base00, s:base0 ] = [ s:base0, s:base00 ]
+
+  " http://paletton.com/#uid=13C0u0knVYVc7ZQi-ZntrXrH4Ty
+  let s:insert = [
+        \ [ s:base02, s:blue, s:bold ],
+        \ [ s:base3, [ '#a4ccfc', 153 ] ],
+        \ [ s:base3, [ '#75b2fb', 111 ] ],
+        \ [ s:base2, [ '#4e9cf9', 75 ] ],
+        \ [ s:base03, [ '#4e9cf9', 75 ] ],
+        \ [ s:base2, [ '#2684f5', 33 ] ],
+        \ [ s:base2, [ '#4e9cf9', 75 ] ] ]
+  " http://paletton.com/#uid=1090u0kkh++7z+WeL+ZpN+WvYZG
+  let s:replace = [
+        \ [ s:base02, s:red, s:bold ],
+        \ [ s:base3, [ '#ffcec3', 224 ] ],
+        \ [ s:base3, [ '#ffa089', 216 ] ],
+        \ [ s:base2, [ '#ff7c5d', 209 ] ],
+        \ [ s:base03, [ '#ff7c5d', 209 ] ],
+        \ [ s:base2, [ '#ff5931', 203 ] ],
+        \ [ s:base2, [ '#ff7c5d', 209 ] ] ]
+  " http://paletton.com/#uid=14Q0u0kcNYG00++6C+qhYVrmpPi
+  let s:visual = [
+        \ [ s:base02, s:magenta, s:bold ],
+        \ [ s:base3, [ '#ffffff', 231 ] ],
+        \ [ s:base3, [ '#f5cafd', 225 ] ],
+        \ [ s:base2, [ '#e898f9', 177 ] ],
+        \ [ s:base03, [ '#e898f9', 177 ] ],
+        \ [ s:base2, [ '#d96df0', 171 ] ],
+        \ [ s:base2, [ '#e898f9', 177 ] ] ]
+else
+  " http://paletton.com/#uid=13C0u0kw0w0jyC+oRxVy4oIDfjr
+  let s:insert = [
+          \ [ s:blue, s:base2, s:bold ],
+          \ [ s:base03, [ '#5383bd', 67 ] ],
+          \ [ s:base03, [ '#3169ac', 61 ] ],
+          \ [ s:base2, [ '#0e53a7', 25 ] ],
+          \ [ s:base03, [ '#0e53a7', 25 ] ],
+          \ [ s:base2, [ '#0a4081', 24 ] ],
+          \ [ s:base2, [ '#0e53a7', 25 ] ] ]
+  " http://paletton.com/#uid=1090u0kw0w0jyC+oRxVy4oIDfjr
+  let s:replace = [
+        \ [ s:red, s:base2, s:bold ],
+        \ [ s:base03, [ '#ff8e63', 209 ] ],
+        \ [ s:base03, [ '#ff5f39', 203 ] ],
+        \ [ s:base2, [ '#ff3100', 202 ] ],
+        \ [ s:base03, [ '#ff5f39', 203 ] ],
+        \ [ s:base2, [ '#c52600', 160 ] ],
+        \ [ s:base2, [ '#ff5f39', 203 ] ] ]
+  " http://paletton.com/#uid=14Q0u0kw0w0jyC+oRxVy4oIDfjr
+  let s:visual = [
+        \ [ s:magenta, s:base2, s:bold ],
+        \ [ s:base03, [ '#aa4dbe', 133 ] ],
+        \ [ s:base03, [ '#962aad', 92 ] ],
+        \ [ s:base2, [ '#8c04a8', 91 ] ],
+        \ [ s:base03, [ '#962aad', 92 ] ],
+        \ [ s:base2, [ '#6c0382', 54 ] ],
+        \ [ s:base2, [ '#962aad', 92 ] ] ]
 endif
 
 let s:normal = [
@@ -70,34 +126,6 @@ let s:normal = [
         \ [ s:base2, s:red ],
         \ [ s:base2, s:yellow ],
         \ [ s:green, s:base02 ] ]
-
-" http://paletton.com/#uid=13C0u0kw0w0jyC+oRxVy4oIDfjr
-let s:insert = [
-        \ [ s:blue, s:base2, s:bold ],
-        \ [ s:base03, [ '#5e8ebd', 67 ] ],
-        \ [ s:base03, [ '#3169ac', 61 ] ],
-        \ [ s:base2, [ '#0e53a7', 25 ] ],
-        \ [ s:base03, [ '#0e53a7', 25 ] ],
-        \ [ s:base2, [ '#0a4081', 24 ] ],
-        \ [ s:base2, [ '#0e53a7', 25 ] ] ]
-" http://paletton.com/#uid=1090u0kw0w0jyC+oRxVy4oIDfjr
-let s:replace = [
-        \ [ s:red, s:base2, s:bold ],
-        \ [ s:base03, [ '#ff8e63', 209 ] ],
-        \ [ s:base03, [ '#ff5f39', 203 ] ],
-        \ [ s:base2, [ '#ff3100', 202 ] ],
-        \ [ s:base03, [ '#ff5f39', 203 ] ],
-        \ [ s:base2, [ '#c52600', 160 ] ],
-        \ [ s:base2, [ '#ff5f39', 203 ] ] ]
-" http://paletton.com/#uid=14Q0u0kw0w0jyC+oRxVy4oIDfjr
-let s:visual = [
-        \ [ s:magenta, s:base2, s:bold ],
-        \ [ s:base03, [ '#aa4dbe', 133 ] ],
-        \ [ s:base03, [ '#962aad', 92 ] ],
-        \ [ s:base2, [ '#8c04a8', 91 ] ],
-        \ [ s:base03, [ '#962aad', 92 ] ],
-        \ [ s:base2, [ '#6c0382', 54 ] ],
-        \ [ s:base2, [ '#962aad', 92 ] ] ]
 
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 
