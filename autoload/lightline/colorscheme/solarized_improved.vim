@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/colorscheme/solarized_improved.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-16T11:47:17+0900.
+" Last Change: 2017-04-16T13:41:46+0900.
 " =============================================================================
 
 let s:cuicolors = {
@@ -126,6 +126,11 @@ let s:normal = [
         \ [ s:base2, s:red ],
         \ [ s:base2, s:yellow ],
         \ [ s:green, s:base02 ] ]
+
+if &background ==# 'light'
+  let s:normal[4][0] = s:base02
+  let s:normal[5][0] = s:base02
+endif
 
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
 
