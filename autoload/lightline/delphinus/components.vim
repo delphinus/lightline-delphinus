@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-15T20:36:57+0900.
+" Last Change: 2017-04-27T08:48:19+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -91,9 +91,22 @@ function! lightline#delphinus#components#charcode() abort
   if winwidth(0) <= 120
     return ''
   endif
+  " if char on cursor is `Λ̊`, :ascii returns below.
+  " <Λ> 923, 16進数 039b, 8進数 1633 < ̊> 778, 16進数 030a, 8進数 1412
   redir => l:tmp | silent! ascii | redir END
-  let l:m = matchlist(l:tmp, '<\(.\+\)>\s*\(\d\+\)')
-  return len(l:m) > 0 ? printf('%s %X', l:m[1], l:m[2]) : ''
+  let l:chars = []
+  call substitute(l:tmp, '<.>\s\+\d\+,\s\+\S\+ \x\+,\s\+\S\+ \d\+', '\=add(l:chars, submatch(0))', 'g')
+  if len(l:chars) == 0
+    return ''
+  endif
+  let l:ascii = []
+  for l:c in l:chars
+    let l:m = matchlist(l:c, '<\(.\)>\s\+\d\+,\s\+\S\+ \(\x\+\)')
+    if len(l:m) > 0
+      call add(l:ascii, printf('%s %s', l:m[1], l:m[2]))
+    endif
+  endfor
+  return join(l:ascii, ', ')
 endfunction
 
 function! lightline#delphinus#components#ale_error() abort
