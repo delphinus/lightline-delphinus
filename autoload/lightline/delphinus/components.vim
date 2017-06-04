@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-04-27T08:48:19+0900.
+" Last Change: 2017-06-04T18:02:44+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -127,14 +127,16 @@ function! s:ale_string(mode)
   endif
 
   let l:buffer = bufnr('%')
-  let [l:error_count, l:warning_count] = ale#statusline#Count(l:buffer)
+  let l:counts = ale#statusline#Count(l:buffer)
   let [l:error_format, l:warning_format, l:no_errors] = g:ale_statusline_format
 
   if a:mode == 0 " Error
-    return l:error_count ? printf(l:error_format, l:error_count) : ''
+    let l:errors = l:counts.error + l:counts.style_error
+    return l:errors ? printf(l:error_format, l:errors) : ''
   elseif a:mode == 1 " Warning
-    return l:warning_count ? printf(l:warning_format, l:warning_count) : ''
+    let l:warnings = l:counts.warning + l:counts.style_warning
+    return l:warnings ? printf(l:warning_format, l:warnings) : ''
   endif
 
-  return l:error_count == 0 && l:warning_count == 0 ? l:no_errors : ''
+  return l:no_errors
 endfunction
