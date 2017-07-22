@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-06-04T18:02:44+0900.
+" Last Change: 2017-07-22T16:22:24+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -138,5 +138,5 @@ function! s:ale_string(mode)
     return l:warnings ? printf(l:warning_format, l:warnings) : ''
   endif
 
-  return l:no_errors
+  return l:counts.total ? '' : l:no_errors
 endfunction
