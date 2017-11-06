@@ -38,7 +38,7 @@ let g:lightline = {
         \   ],
         \ },
         \ 'inactive': {
-        \   'left': [ [ 'filepath', 'filename' ] ],
+        \   'left': [ [ 'filepath' ], [ 'filename' ] ],
         \   'right': [ [ 'lineinfo' ], [ 'percent' ] ],
         \ },
         \ 'component_function': {
