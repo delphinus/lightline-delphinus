@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/colorscheme/nord_improved.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-11-08T07:15:46+0900.
+" Last Change: 2017-11-08T07:23:38+0900.
 " =============================================================================
 
 let s:nord0 = ['#2E3440', 'NONE']
@@ -22,23 +22,19 @@ let s:nord13 = ['#EBCB8B', 3]
 let s:nord14 = ['#A3BE8C', 2]
 let s:nord15 = ['#B48EAD', 5]
 
-let s:orange = [ '#cb4b16', 11 ]
 let s:red = [ '#dc322f', 1 ]
 let s:magenta = [ '#d33682', 5 ]
-let s:violet = [ '#6c71c4', 4 ]
 let s:blue = [ '#268bd2', 12 ]
-let s:cyan = [ '#2aa198', 6 ]
-let s:green = [ '#859900', 2 ]
 
 let s:bold = 'bold'
 
 " http://paletton.com/#uid=13C0u0kw0w0jyC+oRxVy4oIDfjr
 let s:insert = [
         \ [ s:blue, s:nord5, s:bold ],
-        \ [ s:nord1, [ '#5383bd', 67 ] ],
-        \ [ s:nord1, [ '#3169ac', 61 ] ],
+        \ [ s:nord5, [ '#5383bd', 67 ] ],
+        \ [ s:nord5, [ '#3169ac', 61 ] ],
         \ [ s:nord5, [ '#0e53a7', 25 ] ],
-        \ [ s:nord1, [ '#0e53a7', 25 ] ],
+        \ [ s:nord5, [ '#0e53a7', 25 ] ],
         \ [ s:nord5, [ '#0a4081', 24 ] ],
         \ [ s:nord5, [ '#0e53a7', 25 ] ] ]
 " http://paletton.com/#uid=1090u0kw0w0jyC+oRxVy4oIDfjr
