@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-07-22T16:59:27+0900.
+" Last Change: 2017-11-07T08:50:18+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -26,8 +26,13 @@ else
   let s:subseparator = {'left': '|', 'right': '|'}
 endif
 
+let g:lightline_delphinus_colorscheme = get(g:, 'lightline_delphinus_colorscheme', 'solarized_improved')
+if g:lightline_delphinus_colorscheme !=# 'solarized_improved' && g:lightline_delphinus_colorscheme !=# 'nord_improved'
+  call lightline#error('g:lightline_delphinus_colorscheme must be solarized_improved (default) or nord_improved')
+endif
+
 let g:lightline = {
-        \ 'colorscheme': 'solarized_improved',
+        \ 'colorscheme': g:lightline_delphinus_colorscheme,
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filepath' ], [ 'filename' ] ],
@@ -38,7 +43,7 @@ let g:lightline = {
         \   ],
         \ },
         \ 'inactive': {
-        \   'left': [ [ 'filepath', 'filename' ] ],
+        \   'left': [ [ 'filepath' ], [ 'filename' ] ],
         \   'right': [ [ 'lineinfo' ], [ 'percent' ] ],
         \ },
         \ 'component_function': {
