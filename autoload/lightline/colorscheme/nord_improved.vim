@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/colorscheme/nord_improved.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-11-08T07:23:38+0900.
+" Last Change: 2017-11-15T14:29:50+0900.
 " =============================================================================
 
 let s:nord0 = ['#2E3440', 'NONE']
@@ -62,7 +62,7 @@ let s:normal = [
         \ [ s:nord5, s:nord2 ],
         \ [ s:nord6, s:nord1 ],
         \ [ s:nord5, s:nord11 ],
-        \ [ s:nord5, s:nord13 ],
+        \ [ s:nord1, s:nord13 ],
         \ [ s:nord14, s:nord1 ] ]
 
 let s:p = {'normal': {}, 'inactive': {}, 'insert': {}, 'replace': {}, 'visual': {}, 'tabline': {}}
