@@ -2,14 +2,14 @@
 " Filename: autoload/lightline/colorscheme/nord_improved.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-11-15T14:29:50+0900.
+" Last Change: 2017-11-25T17:00:36+0900.
 " =============================================================================
 
-let s:nord0 = ['#2E3440', 'NONE']
+let s:nord0 = ['#2E3440', 0 ]
 let s:nord1 = ['#3B4252', 0]
-let s:nord2 = ['#434C5E', 'NONE']
+let s:nord2 = ['#434C5E', 8 ]
 let s:nord3 = ['#4C566A', 8]
-let s:nord4 = ['#D8DEE9', 'NONE']
+let s:nord4 = ['#D8DEE9', 7 ]
 let s:nord5 = ['#E5E9F0', 7]
 let s:nord6 = ['#ECEFF4', 15]
 let s:nord7 = ['#8FBCBB', 14]
@@ -23,8 +23,8 @@ let s:nord14 = ['#A3BE8C', 2]
 let s:nord15 = ['#B48EAD', 5]
 
 let s:red = [ '#dc322f', 1 ]
-let s:magenta = [ '#d33682', 5 ]
-let s:blue = [ '#268bd2', 12 ]
+let s:magenta = [ '#d33682', 92 ]
+let s:blue = [ '#268bd2', 25 ]
 
 let s:bold = 'bold'
 
@@ -32,7 +32,7 @@ let s:bold = 'bold'
 let s:insert = [
         \ [ s:blue, s:nord5, s:bold ],
         \ [ s:nord5, [ '#5383bd', 67 ] ],
-        \ [ s:nord5, [ '#3169ac', 61 ] ],
+        \ [ s:nord5, [ '#3169ac', 60 ] ],
         \ [ s:nord5, [ '#0e53a7', 25 ] ],
         \ [ s:nord5, [ '#0e53a7', 25 ] ],
         \ [ s:nord5, [ '#0a4081', 24 ] ],
