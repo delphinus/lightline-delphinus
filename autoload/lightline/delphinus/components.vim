@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-07-22T16:22:24+0900.
+" Last Change: 2017-12-09T20:56:41+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -34,6 +34,9 @@ function! lightline#delphinus#components#readonly() abort
 endfunction
 
 function! lightline#delphinus#components#filepath() abort
+  if &filetype ==# 'denite'
+    return ''
+  endif
   let l:ro_string = '' !=# lightline#delphinus#components#readonly() ? lightline#delphinus#components#readonly() . ' ' : ''
   if &filetype ==# 'vimfilter' || &filetype ==# 'unite' || winwidth(0) < 70
     let l:path_string = ''
@@ -49,7 +52,8 @@ endfunction
 
 function! lightline#delphinus#components#filename() abort
   return (&filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
-        \  &filetype ==# 'unite' ? unite#get_status_string() :
+        \ &filetype ==# 'unite' ? unite#get_status_string() :
+        \ &filetype ==# 'denite' ? denite#get_status_sources() :
         \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' !=# lightline#delphinus#components#modified() ? ' ' . lightline#delphinus#components#modified() : '')
 endfunction
@@ -59,7 +63,7 @@ function! lightline#delphinus#components#fugitive() abort
     return ''
   endif
   try
-    if &filetype !~? 'vimfiler\|gundo' && exists('*fugitive#head')
+    if &filetype !~? 'vimfiler\|gundo\|denite' && exists('*fugitive#head')
       return fugitive#head()
     endif
   catch
@@ -68,18 +72,26 @@ function! lightline#delphinus#components#fugitive() abort
 endfunction
 
 function! lightline#delphinus#components#fileformat() abort
-  return winwidth(0) > 120 ? &fileformat . (exists('*WebDevIconsGetFileFormatSymbol') ? ' ' . WebDevIconsGetFileFormatSymbol() : '') : ''
+  return &filetype ==# 'denite' ? '' :
+        \ winwidth(0) > 120 ? &fileformat . (exists('*WebDevIconsGetFileFormatSymbol') ? ' ' . WebDevIconsGetFileFormatSymbol() : '') : ''
 endfunction
 
 function! lightline#delphinus#components#filetype() abort
-  return winwidth(0) > 120 ? (strlen(&filetype) ? &filetype . (exists('*WebDevIconsGetFileTypeSymbol') ? ' ' . WebDevIconsGetFileTypeSymbol() : '') : 'no ft') : ''
+  return &filetype ==# 'denite' ? '' :
+        \ winwidth(0) > 120 ? (strlen(&filetype) ? &filetype . (exists('*WebDevIconsGetFileTypeSymbol') ? ' ' . WebDevIconsGetFileTypeSymbol() : '') : 'no ft') : ''
 endfunction
 
 function! lightline#delphinus#components#fileencoding() abort
-  return winwidth(0) > 120 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
+  return &filetype ==# 'denite' ? '' :
+        \ winwidth(0) > 120 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
 function! lightline#delphinus#components#mode() abort
+  if &filetype ==# 'denite'
+    let l:mode = substitute(denite#get_status_mode(), '[ -]*', '', 'g')
+    call lightline#link(tolower(l:mode[0]))
+    return 'Denite'
+  endif
   let l:fname = expand('%:t')
   return l:fname =~# 'unite' ? 'Unite' :
         \ l:fname =~# 'vimfiler' ? 'VimFilter' :
@@ -88,6 +100,9 @@ function! lightline#delphinus#components#mode() abort
 endfunction
 
 function! lightline#delphinus#components#charcode() abort
+  if &filetype ==# 'denite'
+    return ''
+  endif
   if winwidth(0) <= 120
     return ''
   endif
@@ -122,7 +137,7 @@ function! lightline#delphinus#components#ale_ok() abort
 endfunction
 
 function! s:ale_string(mode)
-  if !exists('g:ale_buffer_info')
+  if !exists('g:ale_buffer_info') || &filetype ==# 'denite'
     return ''
   endif
 
@@ -139,4 +154,18 @@ function! s:ale_string(mode)
   endif
 
   return l:counts.total ? '' : l:no_errors
+endfunction
+
+function! lightline#delphinus#components#lineinfo() abort
+  return &filetype ==# 'denite' ? denite#get_status_linenr() :
+        \ printf('%3d:%-2d', line('.'), col('.'))
+endfunction
+
+function! lightline#delphinus#components#percent() abort
+  if &filetype ==# 'denite'
+    let l:nr = split(substitute(denite#get_status_linenr(), ' ', '', 'g'), '/')
+    return printf('%d%%', 100 * l:nr[0] / l:nr[1])
+  else
+    return printf('%d%%', 100 * line('.') / line('$'))
+  endif
 endfunction
