@@ -97,3 +97,22 @@ If true, it uses glyphs for [nerd-fonts][]. You should use this options with [pa
 ### `g:lightline_delphinus_colorscheme`
 
 Can be set `solarized_improved` (Default) or `nord_improved`.
+
+## ALE setting (optional)
+
+If you want to use neat glyphs statusline for ALE, you should add some settings for ALE. Below is an example that I used in capturing GIF above.
+
+```vim
+" nr2char(...) is for describing icons from devicons
+let g:ale_echo_msg_error_str = nr2char(0xf421) . ' '
+let g:ale_echo_msg_warning_str = nr2char(0xf420) . ' '
+let g:ale_echo_msg_info_str = nr2char(0xf05a) . ' '
+let g:ale_echo_msg_format = '%severity%  %linter% - %s'
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = g:ale_echo_msg_error_str
+let g:ale_sign_warning = g:ale_echo_msg_warning_str
+let g:ale_statusline_format = [
+      \ g:ale_echo_msg_error_str . ' %d',
+      \ g:ale_echo_msg_warning_str . ' %d',
+      \ nr2char(0xf4a1) . '  ']
+```
