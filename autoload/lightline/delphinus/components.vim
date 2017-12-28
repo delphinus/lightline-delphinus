@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-12-09T20:56:41+0900.
+" Last Change: 2017-12-28T16:22:28+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -10,9 +10,11 @@ scriptencoding utf-8
 if g:lightline_delphinus_use_nerd_fonts_glyphs
   let s:mo_glyph = ''
   let s:help_glyph = ''
+  let s:ale_linting_glyph = '   '
 else
   let s:mo_glyph = '+'
   let s:help_glyph = '?'
+  let s:ale_linting_glyph = '....'
 endif
 
 if g:lightline_delphinus_use_powerline_glyphs
@@ -124,6 +126,18 @@ function! lightline#delphinus#components#charcode() abort
   return join(l:ascii, ', ')
 endfunction
 
+let s:ale_linting = 0
+
+function! lightline#delphinus#components#ale_pre() abort
+  let s:ale_linting = 1
+  call lightline#update()
+endfunction
+
+function! lightline#delphinus#components#ale_post() abort
+  let s:ale_linting = 0
+  call lightline#update()
+endfunction
+
 function! lightline#delphinus#components#ale_error() abort
   return s:ale_string(0)
 endfunction
@@ -139,6 +153,10 @@ endfunction
 function! s:ale_string(mode)
   if !exists('g:ale_buffer_info') || &filetype ==# 'denite'
     return ''
+  endif
+  if s:ale_linting
+    " it shows an icon in linting with the `warning` color.
+    return a:mode == 1 ? s:ale_linting_glyph : ''
   endif
 
   let l:buffer = bufnr('%')
