@@ -1,6 +1,6 @@
 # Yet another theme for lightline
 
-<img src="https://github.com/delphinus/lightline-delphinus/raw/master/demo.gif" width="640" height="412">
+<img src="https://github.com/delphinus/lightline-delphinus/raw/master/demo.gif" width="446" height="280">
 
 ## What is this?
 
