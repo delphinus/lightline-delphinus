@@ -36,7 +36,7 @@ function! lightline#delphinus#components#readonly() abort
 endfunction
 
 function! lightline#delphinus#components#filepath() abort
-  if &filetype ==# 'denite' || &filetype ==# 'deol' || expand('%') =~# '^term://'
+  if &filetype ==# 'denite' || &filetype ==# 'deol' || has('nvim') && expand('%') =~# '^term://'
     return ''
   endif
   let l:ro_string = '' !=# lightline#delphinus#components#readonly() ? lightline#delphinus#components#readonly() . ' ' : ''
@@ -95,7 +95,7 @@ function! lightline#delphinus#components#mode() abort
     return 'Denite'
   endif
   let l:fname = expand('%:t')
-  return &filetype ==# 'deol' || expand('%') =~# '^term://' ? 'TERMINAL' :
+  return &filetype ==# 'deol' || has('nvim') && expand('%') =~# '^term://' ? 'TERMINAL' :
         \ l:fname =~# 'unite' ? 'Unite' :
         \ l:fname =~# 'vimfiler' ? 'VimFilter' :
         \ l:fname =~# '__Gundo__' ? 'Gundo' :
