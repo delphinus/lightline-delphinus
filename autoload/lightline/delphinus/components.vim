@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-03-21T22:21:55+0900.
+" Last Change: 2018-03-24T23:37:51+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -36,8 +36,12 @@ function! lightline#delphinus#components#readonly() abort
 endfunction
 
 function! lightline#delphinus#components#filepath() abort
-  if &filetype ==# 'denite' || &buftype ==# 'terminal'
+  if &buftype ==# 'terminal'
     return ''
+  endif
+  if &filetype ==# 'denite'
+    let l:ctx = get(b:, 'denite_context', {})
+    return get(l:ctx, 'sorters', '')
   endif
   let l:ro_string = '' !=# lightline#delphinus#components#readonly() ? lightline#delphinus#components#readonly() . ' ' : ''
   if &filetype ==# 'vimfilter' || &filetype ==# 'unite' || winwidth(0) < 70
