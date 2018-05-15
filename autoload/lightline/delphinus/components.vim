@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-03-24T23:37:51+0900.
+" Last Change: 2018-05-15T16:02:10+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -40,20 +40,20 @@ function! lightline#delphinus#components#filepath() abort
     return ''
   endif
   if &filetype ==# 'denite'
-    let l:ctx = get(b:, 'denite_context', {})
-    return get(l:ctx, 'sorters', '')
+    let ctx = get(b:, 'denite_context', {})
+    return get(ctx, 'sorters', '')
   endif
-  let l:ro_string = '' !=# lightline#delphinus#components#readonly() ? lightline#delphinus#components#readonly() . ' ' : ''
+  let ro_string = '' !=# lightline#delphinus#components#readonly() ? lightline#delphinus#components#readonly() . ' ' : ''
   if &filetype ==# 'vimfilter' || &filetype ==# 'unite' || winwidth(0) < 70
-    let l:path_string = ''
+    let path_string = ''
   else
-    let l:path_string = substitute(expand('%:h'), $HOME, '~', '')
-    if winwidth(0) < 120 && len(l:path_string) > 30
-      let l:path_string = substitute(l:path_string, '\v([^/])[^/]*%(/)@=', '\1', 'g')
+    let path_string = substitute(expand('%:h'), $HOME, '~', '')
+    if winwidth(0) < 120 && len(path_string) > 30
+      let path_string = substitute(path_string, '\v([^/])[^/]*%(/)@=', '\1', 'g')
     endif
   endif
 
-  return l:ro_string . l:path_string
+  return ro_string . path_string
 endfunction
 
 function! lightline#delphinus#components#filename() abort
@@ -95,15 +95,15 @@ endfunction
 
 function! lightline#delphinus#components#mode() abort
   if &filetype ==# 'denite'
-    let l:mode = denite#get_status('raw_mode')
-    call lightline#link(tolower(l:mode[0]))
+    let mode = denite#get_status('raw_mode')
+    call lightline#link(tolower(mode[0]))
     return 'Denite'
   endif
-  let l:fname = expand('%:t')
+  let fname = expand('%:t')
   return &buftype ==# 'terminal' ? 'TERMINAL' :
-        \ l:fname =~# 'unite' ? 'Unite' :
-        \ l:fname =~# 'vimfiler' ? 'VimFilter' :
-        \ l:fname =~# '__Gundo__' ? 'Gundo' :
+        \ fname =~# 'unite' ? 'Unite' :
+        \ fname =~# 'vimfiler' ? 'VimFilter' :
+        \ fname =~# '__Gundo__' ? 'Gundo' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
@@ -116,20 +116,20 @@ function! lightline#delphinus#components#charcode() abort
   endif
   " if char on cursor is `Λ̊`, :ascii returns below.
   " <Λ> 923, 16進数 039b, 8進数 1633 < ̊> 778, 16進数 030a, 8進数 1412
-  redir => l:tmp | silent! ascii | redir END
-  let l:chars = []
-  call substitute(l:tmp, '<.>\s\+\d\+,\s\+\S\+ \x\+,\s\+\S\+ \d\+', '\=add(l:chars, submatch(0))', 'g')
-  if len(l:chars) == 0
+  redir => tmp | silent! ascii | redir END
+  let chars = []
+  call substitute(tmp, '<.>\s\+\d\+,\s\+\S\+ \x\+,\s\+\S\+ \d\+', '\=add(chars, submatch(0))', 'g')
+  if len(chars) == 0
     return ''
   endif
-  let l:ascii = []
-  for l:c in l:chars
-    let l:m = matchlist(l:c, '<\(.\)>\s\+\d\+,\s\+\S\+ \(\x\+\)')
-    if len(l:m) > 0
-      call add(l:ascii, printf('%s %s', l:m[1], l:m[2]))
+  let ascii = []
+  for c in chars
+    let m = matchlist(c, '<\(.\)>\s\+\d\+,\s\+\S\+ \(\x\+\)')
+    if len(m) > 0
+      call add(ascii, printf('%s %s', m[1], m[2]))
     endif
   endfor
-  return join(l:ascii, ', ')
+  return join(ascii, ', ')
 endfunction
 
 let s:ale_linting = 0
@@ -165,19 +165,19 @@ function! s:ale_string(mode)
     return a:mode == 1 ? s:ale_linting_glyph : ''
   endif
 
-  let l:buffer = bufnr('%')
-  let l:counts = ale#statusline#Count(l:buffer)
-  let [l:error_format, l:warning_format, l:no_errors] = g:ale_statusline_format
+  let buffer = bufnr('%')
+  let counts = ale#statusline#Count(buffer)
+  let [error_format, warning_format, no_errors] = g:ale_statusline_format
 
   if a:mode == 0 " Error
-    let l:errors = l:counts.error + l:counts.style_error
-    return l:errors ? printf(l:error_format, l:errors) : ''
+    let errors = counts.error + counts.style_error
+    return errors ? printf(error_format, errors) : ''
   elseif a:mode == 1 " Warning
-    let l:warnings = l:counts.warning + l:counts.style_warning
-    return l:warnings ? printf(l:warning_format, l:warnings) : ''
+    let warnings = counts.warning + counts.style_warning
+    return warnings ? printf(warning_format, warnings) : ''
   endif
 
-  return l:counts.total ? '' : l:no_errors
+  return counts.total ? '' : no_errors
 endfunction
 
 function! lightline#delphinus#components#lineinfo() abort
@@ -186,7 +186,7 @@ function! lightline#delphinus#components#lineinfo() abort
 endfunction
 
 function! lightline#delphinus#components#percent() abort
-  let l:line = &filetype ==# 'denite' ? denite#get_status('line_cursor') : line('.')
-  let l:total = &filetype ==# 'denite' ? denite#get_status('line_total') : line('$')
-  return l:total ? printf('%d%%', 100 * l:line / l:total) : '0%'
+  let line = &filetype ==# 'denite' ? denite#get_status('line_cursor') : line('.')
+  let total = &filetype ==# 'denite' ? denite#get_status('line_total') : line('$')
+  return total ? printf('%d%%', 100 * line / total) : '0%'
 endfunction
