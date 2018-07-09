@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-05-15T16:02:10+0900.
+" Last Change: 2018-07-09T23:24:39+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -57,7 +57,7 @@ function! lightline#delphinus#components#filepath() abort
 endfunction
 
 function! lightline#delphinus#components#filename() abort
-  return (&buftype ==# 'terminal' ? b:term_title . ' (' . b:terminal_job_pid . ')' :
+  return (&buftype ==# 'terminal' ? has('nvim') ? b:term_title . ' (' . b:terminal_job_pid . ')' : '' :
         \ &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
         \ &filetype ==# 'unite' ? unite#get_status_string() :
         \ &filetype ==# 'denite' ? denite#get_status_sources() :
