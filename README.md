@@ -52,6 +52,7 @@ call dein#add('itchyny/lightline.vim')
 " optional
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('w0rp/ale')
+call dein#add('majutsushi/tagbar')
 ```
 
 #### TOML setting
@@ -69,6 +70,9 @@ repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
 repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'majutsushi/tagbar'
 ```
 
 [dein]: https://github.com/Shougo/dein.vim
@@ -116,3 +120,11 @@ let g:ale_statusline_format = [
       \ g:ale_echo_msg_warning_str . ' %d',
       \ nr2char(0xf4a1) . '  ']
 ```
+
+## tagbar setting (optional)
+
+lightline-delphinus can detect installed [tagbar][] and show function names on cursor by `tagbar#current()`.
+
+[tagbar]: https://github.com/majutsushi/tagbar
+
+<img width="621" alt="2018-07-12 14 22 05" src="https://user-images.githubusercontent.com/1239245/42614066-2914af50-85df-11e8-9465-395a04e6ac82.png">

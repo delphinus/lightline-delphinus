@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-09T23:24:39+0900.
+" Last Change: 2018-07-12T14:15:00+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -189,4 +189,24 @@ function! lightline#delphinus#components#percent() abort
   let line = &filetype ==# 'denite' ? denite#get_status('line_cursor') : line('.')
   let total = &filetype ==# 'denite' ? denite#get_status('line_total') : line('$')
   return total ? printf('%d%%', 100 * line / total) : '0%'
+endfunction
+
+function! lightline#delphinus#components#currenttag() abort
+  if !get(s:, 'currenttag_init')
+    try
+      let tmp = tagbar#currenttag('%', '', '')
+    catch
+    endtry
+    unlet! tmp
+    let s:currenttag_init = 1
+  endif
+  if !exists('*tagbar#currenttag')
+    return ''
+  endif
+  let now = localtime()
+  if get(s:, 'currenttag_last_lookup') != now
+    let s:currenttag_last_lookup = now
+    let s:currenttag_last_seen = tagbar#currenttag('%s', '')
+  endif
+  return get(s:, 'currenttag_last_seen', '')
 endfunction

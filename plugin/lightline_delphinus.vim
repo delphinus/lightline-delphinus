@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2017-12-28T16:21:50+0900.
+" Last Change: 2018-07-12T14:02:38+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -35,7 +35,7 @@ let g:lightline = {
         \ 'colorscheme': g:lightline_delphinus_colorscheme,
         \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filepath' ], [ 'filename' ] ],
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filepath' ], [ 'filename', 'currenttag' ] ],
         \   'right': [
         \     [ 'lineinfo' ],
         \     [ 'percent' ],
@@ -59,6 +59,7 @@ let g:lightline = {
         \   'char_code':    'lightline#delphinus#components#charcode',
         \   'lineinfo':     'lightline#delphinus#components#lineinfo',
         \   'percent':      'lightline#delphinus#components#percent',
+        \   'currenttag':   'lightline#delphinus#components#currenttag',
         \ },
         \ 'component_function_visible_condition': {
         \   'mode': 1,
