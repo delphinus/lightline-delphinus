@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T17:24:49+0900.
+" Last Change: 2018-07-13T17:42:18+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -30,6 +30,8 @@ let g:lightline_delphinus_colorscheme = get(g:, 'lightline_delphinus_colorscheme
 if g:lightline_delphinus_colorscheme !=# 'solarized_improved' && g:lightline_delphinus_colorscheme !=# 'nord_improved'
   call lightline#error('g:lightline_delphinus_colorscheme must be solarized_improved (default) or nord_improved')
 endif
+
+let g:tagbar_status_func = 'lightline#delphinus#components#tagbar_status'
 
 let g:lightline = {
         \ 'colorscheme': g:lightline_delphinus_colorscheme,

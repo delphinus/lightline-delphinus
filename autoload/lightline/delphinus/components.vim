@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T16:56:38+0900.
+" Last Change: 2018-07-13T17:48:45+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -25,7 +25,7 @@ endif
 
 function! lightline#delphinus#components#modified() abort
   return &buftype ==# 'terminal' ? '' :
-        \ &filetype =~# 'help\|vimfiler\|gundo' ? '' :
+        \ &filetype =~# 'help\|vimfiler\|gundo\|tagbar' ? '' :
         \ &modified ? s:mo_glyph : &modifiable ? '' :
         \ '-'
 endfunction
@@ -33,12 +33,12 @@ endfunction
 function! lightline#delphinus#components#readonly() abort
   return &buftype ==# 'terminal' ? '' :
         \ &filetype ==# 'help' ? s:help_glyph :
-        \ &filetype !~# 'vimfiler\|gundo' && &readonly ? s:ro_glyph :
+        \ &filetype !~# 'vimfiler\|gundo\|tagbar' && &readonly ? s:ro_glyph :
         \ ''
 endfunction
 
 function! lightline#delphinus#components#filepath() abort
-  if &buftype ==# 'terminal'
+  if &buftype ==# 'terminal' || &filetype ==# 'tagbar'
     return ''
   endif
   if &filetype ==# 'denite'
@@ -63,6 +63,7 @@ function! lightline#delphinus#components#filename() abort
         \ &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
         \ &filetype ==# 'unite' ? unite#get_status_string() :
         \ &filetype ==# 'denite' ? denite#get_status_sources() :
+        \ &filetype ==# 'tagbar' ? get(g:lightline, 'fname', '') :
         \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' !=# lightline#delphinus#components#modified() ? ' ' . lightline#delphinus#components#modified() : '')
 endfunction
@@ -72,7 +73,7 @@ function! lightline#delphinus#components#fugitive() abort
     return ''
   endif
   try
-    if &filetype !~? 'vimfiler\|gundo\|denite' && exists('*fugitive#head')
+    if &filetype !~? 'vimfiler\|gundo\|denite\|tagbar' && exists('*fugitive#head')
       return fugitive#head()
     endif
   catch
@@ -81,17 +82,17 @@ function! lightline#delphinus#components#fugitive() abort
 endfunction
 
 function! lightline#delphinus#components#fileformat() abort
-  return &buftype ==# 'terminal' || &filetype ==# 'denite' ? '' :
+  return &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar' ? '' :
         \ winwidth(0) > 120 ? &fileformat . (exists('*WebDevIconsGetFileFormatSymbol') ? ' ' . WebDevIconsGetFileFormatSymbol() : '') : ''
 endfunction
 
 function! lightline#delphinus#components#filetype() abort
-  return &buftype ==# 'terminal' || &filetype ==# 'denite' ? '' :
+  return &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar' ? '' :
         \ winwidth(0) > 120 ? (strlen(&filetype) ? &filetype . (exists('*WebDevIconsGetFileTypeSymbol') ? ' ' . WebDevIconsGetFileTypeSymbol() : '') : 'no ft') : ''
 endfunction
 
 function! lightline#delphinus#components#fileencoding() abort
-  return &buftype ==# 'terminal' || &filetype ==# 'denite' ? '' :
+  return &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar' ? '' :
         \ winwidth(0) > 120 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
@@ -105,11 +106,12 @@ function! lightline#delphinus#components#mode() abort
   return fname =~# 'unite' ? 'Unite' :
         \ fname =~# 'vimfiler' ? 'VimFilter' :
         \ fname =~# '__Gundo__' ? 'Gundo' :
+        \ &filetype ==# 'tagbar' ? 'Tagbar' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 function! lightline#delphinus#components#charcode() abort
-  if &buftype ==# 'terminal' || &filetype ==# 'denite'
+  if &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   if winwidth(0) <= 120
@@ -158,7 +160,7 @@ function! lightline#delphinus#components#ale_ok() abort
 endfunction
 
 function! s:ale_string(mode)
-  if !exists('g:ale_buffer_info') || &buftype ==# 'terminal' || &filetype ==# 'denite'
+  if !exists('g:ale_buffer_info') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   if s:ale_linting
@@ -183,17 +185,21 @@ endfunction
 
 function! lightline#delphinus#components#lineinfo() abort
   return &filetype ==# 'denite' ? denite#get_status_linenr() :
+        \ &filetype ==# 'tagbar' ? '' :
         \ printf('%3d:%-2d', line('.'), col('.'))
 endfunction
 
 function! lightline#delphinus#components#percent() abort
+  if &filetype ==# 'tagbar'
+    return ''
+  endif
   let line = &filetype ==# 'denite' ? denite#get_status('line_cursor') : line('.')
   let total = &filetype ==# 'denite' ? denite#get_status('line_total') : line('$')
   return total ? printf('%d%%', 100 * line / total) : '0%'
 endfunction
 
 function! lightline#delphinus#components#currenttag() abort
-  if &buftype ==# 'terminal' || &filetype ==# 'denite'
+  if &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   if !get(s:, 'currenttag_init')
@@ -213,4 +219,9 @@ function! lightline#delphinus#components#currenttag() abort
     let s:currenttag_last_seen = tagbar#currenttag('%s', '')
   endif
   return get(s:, 'currenttag_last_seen', '')
+endfunction
+
+function! lightline#delphinus#components#tagbar_status(current, sort, fname, ...) abort
+  let g:lightline.fname = a:fname
+  return lightline#statusline(0)
 endfunction
