@@ -2,15 +2,15 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T12:13:25+0900.
+" Last Change: 2018-07-13T16:56:38+0900.
 " =============================================================================
 
 scriptencoding utf-8
 
 if g:lightline_delphinus_use_nerd_fonts_glyphs
-  let s:mo_glyph = nr2char(0xf040) . ' ' " 
-  let s:help_glyph = nr2char(0xf128) " 
-  let s:ale_linting_glyph = ' ' . nr2char(0xf250) . '  ' " 
+  let s:mo_glyph = "\uf040 " " 
+  let s:help_glyph = "\uf128" " 
+  let s:ale_linting_glyph = " \uf250  " " 
 else
   let s:mo_glyph = '+'
   let s:help_glyph = '?'
@@ -18,7 +18,7 @@ else
 endif
 
 if g:lightline_delphinus_use_powerline_glyphs
-  let s:ro_glyph = ''
+  let s:ro_glyph = "\ue0a2" " 
 else
   let s:ro_glyph = 'RO'
 endif
