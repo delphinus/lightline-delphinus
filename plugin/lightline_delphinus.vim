@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-12T14:02:38+0900.
+" Last Change: 2018-07-13T17:11:43+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -63,6 +63,7 @@ let g:lightline = {
         \ },
         \ 'component_function_visible_condition': {
         \   'mode': 1,
+        \   'currenttag': 0,
         \ },
         \ 'component_expand': {
         \   'ale_error':   'lightline#delphinus#components#ale_error',
