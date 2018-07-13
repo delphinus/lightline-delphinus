@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T11:34:57+0900.
+" Last Change: 2018-07-13T12:13:25+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -24,13 +24,15 @@ else
 endif
 
 function! lightline#delphinus#components#modified() abort
-  return &filetype =~# 'help\|vimfiler\|gundo' ? '' :
+  return &buftype ==# 'terminal' ? '' :
+        \ &filetype =~# 'help\|vimfiler\|gundo' ? '' :
         \ &modified ? s:mo_glyph : &modifiable ? '' :
         \ '-'
 endfunction
 
 function! lightline#delphinus#components#readonly() abort
-  return &filetype ==# 'help' ? s:help_glyph :
+  return &buftype ==# 'terminal' ? '' :
+        \ &filetype ==# 'help' ? s:help_glyph :
         \ &filetype !~# 'vimfiler\|gundo' && &readonly ? s:ro_glyph :
         \ ''
 endfunction
@@ -66,7 +68,7 @@ function! lightline#delphinus#components#filename() abort
 endfunction
 
 function! lightline#delphinus#components#fugitive() abort
-  if winwidth(0) < 100
+  if &buftype ==# 'terminal' || winwidth(0) < 100
     return ''
   endif
   try
@@ -79,17 +81,17 @@ function! lightline#delphinus#components#fugitive() abort
 endfunction
 
 function! lightline#delphinus#components#fileformat() abort
-  return &filetype ==# 'denite' ? '' :
+  return &buftype ==# 'terminal' || &filetype ==# 'denite' ? '' :
         \ winwidth(0) > 120 ? &fileformat . (exists('*WebDevIconsGetFileFormatSymbol') ? ' ' . WebDevIconsGetFileFormatSymbol() : '') : ''
 endfunction
 
 function! lightline#delphinus#components#filetype() abort
-  return &filetype ==# 'denite' ? '' :
+  return &buftype ==# 'terminal' || &filetype ==# 'denite' ? '' :
         \ winwidth(0) > 120 ? (strlen(&filetype) ? &filetype . (exists('*WebDevIconsGetFileTypeSymbol') ? ' ' . WebDevIconsGetFileTypeSymbol() : '') : 'no ft') : ''
 endfunction
 
 function! lightline#delphinus#components#fileencoding() abort
-  return &filetype ==# 'denite' ? '' :
+  return &buftype ==# 'terminal' || &filetype ==# 'denite' ? '' :
         \ winwidth(0) > 120 ? (strlen(&fileencoding) ? &fileencoding : &encoding) : ''
 endfunction
 
@@ -100,15 +102,14 @@ function! lightline#delphinus#components#mode() abort
     return 'Denite'
   endif
   let fname = expand('%:t')
-  return &buftype ==# 'terminal' ? 'TERMINAL' :
-        \ fname =~# 'unite' ? 'Unite' :
+  return fname =~# 'unite' ? 'Unite' :
         \ fname =~# 'vimfiler' ? 'VimFilter' :
         \ fname =~# '__Gundo__' ? 'Gundo' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 function! lightline#delphinus#components#charcode() abort
-  if &filetype ==# 'denite'
+  if &buftype ==# 'terminal' || &filetype ==# 'denite'
     return ''
   endif
   if winwidth(0) <= 120
@@ -157,7 +158,7 @@ function! lightline#delphinus#components#ale_ok() abort
 endfunction
 
 function! s:ale_string(mode)
-  if !exists('g:ale_buffer_info') || &filetype ==# 'denite'
+  if !exists('g:ale_buffer_info') || &buftype ==# 'terminal' || &filetype ==# 'denite'
     return ''
   endif
   if s:ale_linting
@@ -192,6 +193,9 @@ function! lightline#delphinus#components#percent() abort
 endfunction
 
 function! lightline#delphinus#components#currenttag() abort
+  if &buftype ==# 'terminal' || &filetype ==# 'denite'
+    return ''
+  endif
   if !get(s:, 'currenttag_init')
     try
       let tmp = tagbar#currenttag('%', '', '')
