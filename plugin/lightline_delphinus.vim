@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T17:16:11+0900.
+" Last Change: 2018-07-13T17:24:49+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -33,7 +33,6 @@ endif
 
 let g:lightline = {
         \ 'colorscheme': g:lightline_delphinus_colorscheme,
-        \ 'mode_map': {'c': 'NORMAL'},
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filepath' ], [ 'filename', 'currenttag' ] ],
         \   'right': [
