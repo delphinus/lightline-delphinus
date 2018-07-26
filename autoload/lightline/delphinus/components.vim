@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T17:48:45+0900.
+" Last Change: 2018-07-26T21:52:42+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -87,7 +87,8 @@ function! lightline#delphinus#components#fileformat() abort
 endfunction
 
 function! lightline#delphinus#components#filetype() abort
-  return &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar' ? '' :
+  return &buftype ==# 'terminal' || &filetype ==# 'tagbar' ? '' :
+        \ &filetype ==# 'denite' ? denite#get_status('is_async') ? '[async]' : '' :
         \ winwidth(0) > 120 ? (strlen(&filetype) ? &filetype . (exists('*WebDevIconsGetFileTypeSymbol') ? ' ' . WebDevIconsGetFileTypeSymbol() : '') : 'no ft') : ''
 endfunction
 
