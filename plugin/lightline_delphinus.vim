@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T17:42:18+0900.
+" Last Change: 2018-08-15T17:08:31+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -40,7 +40,7 @@ let g:lightline = {
         \   'right': [
         \     [ 'lineinfo' ],
         \     [ 'percent' ],
-        \     [ 'ale_error', 'ale_warning', 'ale_ok', 'char_code', 'fileformat', 'fileencoding', 'filetype' ],
+        \     [ 'ale_error', 'ale_warning', 'ale_ok', 'char_code', 'fileformat', 'fileencoding', 'filetype', 'gitgutter' ],
         \   ],
         \ },
         \ 'inactive': {
@@ -61,6 +61,7 @@ let g:lightline = {
         \   'lineinfo':     'lightline#delphinus#components#lineinfo',
         \   'percent':      'lightline#delphinus#components#percent',
         \   'currenttag':   'lightline#delphinus#components#currenttag',
+        \   'gitgutter':    'lightline#delphinus#components#gitgutter',
         \ },
         \ 'component_function_visible_condition': {
         \   'mode': 1,
@@ -89,6 +90,7 @@ augroup LightLineOnALE
   autocmd User ALELint     call lightline#update()
   autocmd User ALELintPre  call lightline#delphinus#components#ale_pre()
   autocmd User ALELintPost call lightline#delphinus#components#ale_post()
+  autocmd User GitGutter   call lightline#delphinus#components#gitgutter_pre()
 augroup end
 
 let &cpoptions = s:save_cpo
