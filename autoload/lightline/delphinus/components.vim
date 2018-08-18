@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-08-15T17:23:08+0900.
+" Last Change: 2018-08-18T16:38:37+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -256,7 +256,6 @@ function! lightline#delphinus#components#gitgutter() abort
       let gitgutter_status['modified_removed'] += num1 - num2
     endif
   endfor
-  echomsg string(gitgutter#hunk#hunks(nr))
   return printf('%s %d %s %d %s %d %s %d',
         \ g:gitgutter_sign_added, gitgutter_status['added'],
         \ g:gitgutter_sign_modified, gitgutter_status['modified'],
