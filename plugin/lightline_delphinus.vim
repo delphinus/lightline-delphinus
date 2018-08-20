@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-08-15T17:08:31+0900.
+" Last Change: 2018-08-20T16:09:58+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -40,7 +40,7 @@ let g:lightline = {
         \   'right': [
         \     [ 'lineinfo' ],
         \     [ 'percent' ],
-        \     [ 'ale_error', 'ale_warning', 'ale_ok', 'char_code', 'fileformat', 'fileencoding', 'filetype', 'gitgutter' ],
+        \     [ 'ale_error', 'ale_warning', 'ale_ok', 'gitgutter_added', 'gitgutter_modified', 'gitgutter_removed', 'gitgutter_modified_removed', 'char_code', 'fileformat', 'fileencoding', 'filetype' ],
         \   ],
         \ },
         \ 'inactive': {
@@ -61,7 +61,10 @@ let g:lightline = {
         \   'lineinfo':     'lightline#delphinus#components#lineinfo',
         \   'percent':      'lightline#delphinus#components#percent',
         \   'currenttag':   'lightline#delphinus#components#currenttag',
-        \   'gitgutter':    'lightline#delphinus#components#gitgutter',
+        \   'gitgutter_added':    'lightline#delphinus#components#gitgutter_added',
+        \   'gitgutter_modified':    'lightline#delphinus#components#gitgutter_modified',
+        \   'gitgutter_removed':    'lightline#delphinus#components#gitgutter_removed',
+        \   'gitgutter_modified_removed':    'lightline#delphinus#components#gitgutter_modified_removed',
         \ },
         \ 'component_function_visible_condition': {
         \   'mode': 1,
@@ -70,6 +73,10 @@ let g:lightline = {
         \   'fileformat': 0,
         \   'filetype': 0,
         \   'fileencoding': 0,
+        \   'gitgutter_added': 0,
+        \   'gitgutter_modified': 0,
+        \   'gitgutter_removed': 0,
+        \   'gitgutter_modified_removed': 0,
         \ },
         \ 'component_expand': {
         \   'ale_error':   'lightline#delphinus#components#ale_error',
