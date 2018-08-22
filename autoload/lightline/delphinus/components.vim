@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-08-20T17:01:15+0900.
+" Last Change: 2018-08-18T16:38:37+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -227,58 +227,38 @@ function! lightline#delphinus#components#tagbar_status(current, sort, fname, ...
 endfunction
 
 function! lightline#delphinus#components#gitgutter_pre() abort
-  let ctx = get(g:, 'gitgutter_hook_context', {})
-  let bufnr = get(ctx, 'bufnr', -9999)
-  if bufnr == -9999
-    return
-  endif
-  let g:lightline_delphinus_gitgutter_context = get(g:, 'lightline_delphinus_gitgutter_context', {})
-  let g:lightline_delphinus_gitgutter_context[bufnr] = gitgutter#hunk#hunks(bufnr)
+  let g:lightline_delphinus_gitgutter_context = get(g:, 'gitgutter_hook_context', {})
   call lightline#update()
 endfunction
 
-function! lightline#delphinus#components#gitgutter_added() abort
-  return s:gitgutter(0)
-endfunction
-
-function! lightline#delphinus#components#gitgutter_modified() abort
-  return s:gitgutter(1)
-endfunction
-
-function! lightline#delphinus#components#gitgutter_removed() abort
-  return s:gitgutter(2)
-endfunction
-
-function! lightline#delphinus#components#gitgutter_modified_removed() abort
-  return s:gitgutter(3)
-endfunction
-
-function! s:gitgutter(mode) abort
+function! lightline#delphinus#components#gitgutter() abort
   let ctx = get(g:, 'lightline_delphinus_gitgutter_context', {})
-  let hunks = get(ctx, bufnr('%'), [])
+  let nr = get(ctx, 'bufnr', -9999)
+  if nr == -9999
+    return ''
+  endif
+  let hunks = gitgutter#hunk#hunks(nr)
   if len(hunks) == 0
     return ''
   endif
-  let num = 0
+  let gitgutter_status = {'added': 0, 'modified': 0, 'removed': 0, 'modified_removed': 0}
   for [line1, num1, line2, num2] in hunks
-    if a:mode == 0 " added
-      if num1 < num2
-        let num += num2 - num1
-      endif
-    elseif a:mode == 1 " modified
-      if num1 <= num2
-        let num += num1
-      endif
-    elseif a:mode == 2 " removed
-      if num2 == 0
-        let num += num1
-      endif
-    else " modified_removed
-      if num1 > num2
-        let num += num1 - num2
-      endif
+    if num1 == 0
+      let gitgutter_status['added'] += num2
+    elseif num1 < num2
+      let gitgutter_status['added'] += num2 - num1
+      let gitgutter_status['modified'] += num1
+    elseif num1 == num2
+      let gitgutter_status['modified'] += num1
+    elseif num2 == 0
+      let gitgutter_status['removed'] += num1
+    else
+      let gitgutter_status['modified_removed'] += num1 - num2
     endif
   endfor
-  let sign = [g:gitgutter_sign_added, g:gitgutter_sign_modified, g:gitgutter_sign_removed, g:gitgutter_sign_modified_removed][a:mode]
-  return printf('%s %d', sign, num)
+  return printf('%s %d %s %d %s %d %s %d',
+        \ g:gitgutter_sign_added, gitgutter_status['added'],
+        \ g:gitgutter_sign_modified, gitgutter_status['modified'],
+        \ g:gitgutter_sign_removed, gitgutter_status['removed'],
+        \ g:gitgutter_sign_modified_removed, gitgutter_status['modified_removed'])
 endfunction
