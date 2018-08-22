@@ -237,7 +237,7 @@ function! lightline#delphinus#components#gitgutter() abort
   endif
   let ctx = get(g:, 'lightline_delphinus_gitgutter_context', {})
   let nr = get(ctx, 'bufnr', -9999)
-  if nr == -9999
+  if nr == -9999 || nr != bufnr('%')
     return ''
   endif
   let hunks = gitgutter#hunk#hunks(nr)
