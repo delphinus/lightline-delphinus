@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-08-22T15:48:42+0900.
+" Last Change: 2018-08-20T16:09:58+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -40,9 +40,7 @@ let g:lightline = {
         \   'right': [
         \     [ 'lineinfo' ],
         \     [ 'percent' ],
-        \     [ 'ale_error', 'ale_warning', 'ale_ok',
-        \       'gitgutter_added', 'gitgutter_modified', 'gitgutter_removed', 'gitgutter_modified_removed',
-        \       'char_code', 'fileformat', 'fileencoding', 'filetype' ],
+        \     [ 'ale_error', 'ale_warning', 'ale_ok', 'gitgutter_added', 'gitgutter_modified', 'gitgutter_removed', 'gitgutter_modified_removed', 'char_code', 'fileformat', 'fileencoding', 'filetype' ],
         \   ],
         \ },
         \ 'inactive': {
@@ -50,23 +48,23 @@ let g:lightline = {
         \   'right': [ [ 'lineinfo' ], [ 'percent' ] ],
         \ },
         \ 'component_function': {
-        \   'modified':                   'lightline#delphinus#components#modified',
-        \   'readonly':                   'lightline#delphinus#components#readonly',
-        \   'fugitive':                   'lightline#delphinus#components#fugitive',
-        \   'filepath':                   'lightline#delphinus#components#filepath',
-        \   'filename':                   'lightline#delphinus#components#filename',
-        \   'fileformat':                 'lightline#delphinus#components#fileformat',
-        \   'filetype':                   'lightline#delphinus#components#filetype',
-        \   'fileencoding':               'lightline#delphinus#components#fileencoding',
-        \   'mode':                       'lightline#delphinus#components#mode',
-        \   'char_code':                  'lightline#delphinus#components#charcode',
-        \   'lineinfo':                   'lightline#delphinus#components#lineinfo',
-        \   'percent':                    'lightline#delphinus#components#percent',
-        \   'currenttag':                 'lightline#delphinus#components#currenttag',
-        \   'gitgutter_added':            'lightline#delphinus#components#gitgutter_added',
-        \   'gitgutter_modified':         'lightline#delphinus#components#gitgutter_modified',
-        \   'gitgutter_removed':          'lightline#delphinus#components#gitgutter_removed',
-        \   'gitgutter_modified_removed': 'lightline#delphinus#components#gitgutter_modified_removed',
+        \   'modified':     'lightline#delphinus#components#modified',
+        \   'readonly':     'lightline#delphinus#components#readonly',
+        \   'fugitive':     'lightline#delphinus#components#fugitive',
+        \   'filepath':     'lightline#delphinus#components#filepath',
+        \   'filename':     'lightline#delphinus#components#filename',
+        \   'fileformat':   'lightline#delphinus#components#fileformat',
+        \   'filetype':     'lightline#delphinus#components#filetype',
+        \   'fileencoding': 'lightline#delphinus#components#fileencoding',
+        \   'mode':         'lightline#delphinus#components#mode',
+        \   'char_code':    'lightline#delphinus#components#charcode',
+        \   'lineinfo':     'lightline#delphinus#components#lineinfo',
+        \   'percent':      'lightline#delphinus#components#percent',
+        \   'currenttag':   'lightline#delphinus#components#currenttag',
+        \   'gitgutter_added':    'lightline#delphinus#components#gitgutter_added',
+        \   'gitgutter_modified':    'lightline#delphinus#components#gitgutter_modified',
+        \   'gitgutter_removed':    'lightline#delphinus#components#gitgutter_removed',
+        \   'gitgutter_modified_removed':    'lightline#delphinus#components#gitgutter_modified_removed',
         \ },
         \ 'component_function_visible_condition': {
         \   'mode': 1,
