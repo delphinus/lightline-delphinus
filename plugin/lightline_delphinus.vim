@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-08-15T17:08:31+0900.
+" Last Change: 2018-08-22T16:44:10+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -36,11 +36,11 @@ let g:tagbar_status_func = 'lightline#delphinus#components#tagbar_status'
 let g:lightline = {
         \ 'colorscheme': g:lightline_delphinus_colorscheme,
         \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filepath' ], [ 'filename', 'currenttag' ] ],
+        \   'left': [ [ 'mode', 'paste' ], [ 'ale_error', 'ale_warning', 'ale_ok', 'fugitive', 'gitgutter' ], [ 'filepath' ], [ 'filename', 'currenttag' ] ],
         \   'right': [
         \     [ 'lineinfo' ],
         \     [ 'percent' ],
-        \     [ 'ale_error', 'ale_warning', 'ale_ok', 'char_code', 'fileformat', 'fileencoding', 'filetype', 'gitgutter' ],
+        \     [ 'char_code', 'fileformat', 'fileencoding', 'filetype' ],
         \   ],
         \ },
         \ 'inactive': {
