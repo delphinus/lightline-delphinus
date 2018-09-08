@@ -49,9 +49,16 @@ function! lightline#delphinus#components#filepath() abort
   if &filetype ==# 'vimfilter' || &filetype ==# 'unite' || winwidth(0) < 70
     let path_string = ''
   else
-    let path_string = substitute(expand('%:h'), $HOME, '~', '')
+    if exists('+shellslash')
+      let saved_shellslash = &shellslash
+      set shellslash
+    endif
+    let path_string = substitute(fnamemodify(expand('%:h'),':p'), fnamemodify(expand($HOME),':p'), '~/', '')
     if winwidth(0) < 120 && len(path_string) > 30
       let path_string = substitute(path_string, '\v([^/])[^/]*%(/)@=', '\1', 'g')
+    endif
+    if exists('+shellslash')
+      let &shellslash = saved_shellslash
     endif
   endif
 
