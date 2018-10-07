@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-08-22T16:59:32+0900.
+" Last Change: 2018-10-07T16:20:37+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -88,8 +88,8 @@ let g:lightline = {
 augroup LightLineOnALE
   autocmd!
   autocmd User ALELint     call lightline#update()
-  autocmd User ALELintPre  call lightline#delphinus#components#ale_pre()
-  autocmd User ALELintPost call lightline#delphinus#components#ale_post()
+  autocmd User ALEFixPre  call lightline#delphinus#components#ale_pre()
+  autocmd User ALEFixPost call lightline#delphinus#components#ale_post()
   autocmd User GitGutter   call lightline#delphinus#components#gitgutter_pre()
 augroup end
 
