@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-08-22T16:53:03+0900.
+" Last Change: 2018-10-27T09:30:00+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -206,7 +206,7 @@ function! lightline#delphinus#components#percent() abort
 endfunction
 
 function! lightline#delphinus#components#currenttag() abort
-  if &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
+  if !g:lightline_delphinus_tagbar_enable || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   if !get(s:, 'currenttag_init')

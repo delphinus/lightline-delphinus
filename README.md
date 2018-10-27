@@ -125,6 +125,8 @@ let g:ale_statusline_format = [
 
 lightline-delphinus can detect installed [tagbar][] and show function names on cursor by `tagbar#current()`. The info from tagbar will be updated once per second at the maximum.
 
+Set `let g:lightline_delphinus_tagbar_enable = 1` to enable this.
+
 [tagbar]: https://github.com/majutsushi/tagbar
 
 <img width="621" alt="2018-07-12 14 22 05" src="https://user-images.githubusercontent.com/1239245/42614066-2914af50-85df-11e8-9465-395a04e6ac82.png">
