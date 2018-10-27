@@ -85,7 +85,7 @@ repo = 'majutsushi/tagbar'
 
 ### `g:lightline_delphinus_use_powerline_glyphs`
 
-If true, it uses glyphs for [Powerline][]. You should use this options with fonts from [powerline-fonts][] or natively-supported ones such as [Iosevka][].
+If true, it uses glyphs for [Powerline][]. You should use this options with fonts from [powerline-fonts][] or natively supported ones such as [Iosevka][].
 
 [Powerline]: https://github.com/powerline/powerline
 [powerline-fonts]: https://github.com/powerline/fonts
