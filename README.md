@@ -102,6 +102,16 @@ If true, it uses glyphs for [nerd-fonts][]. You should use this options with [pa
 
 Can be set `solarized_improved` (Default) or `nord_improved`.
 
+### `g:lightline_delphinus_tagbar_enable`
+
+Enable tagbar feature. See below.
+
+### `g:lightline_delphinus_gitgutter_enable`
+
+Enable gitgutter feature. See below.
+
+Can be set `solarized_improved` (Default) or `nord_improved`.
+
 ## ALE setting (optional)
 
 If you want to use neat glyphs statusline for ALE, you should add some settings for ALE. Below is an example that I used in capturing GIF above.
