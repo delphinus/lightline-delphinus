@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T17:42:18+0900.
+" Last Change: 2018-10-27T09:29:33+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -31,16 +31,17 @@ if g:lightline_delphinus_colorscheme !=# 'solarized_improved' && g:lightline_del
   call lightline#error('g:lightline_delphinus_colorscheme must be solarized_improved (default) or nord_improved')
 endif
 
+let g:lightline_delphinus_tagbar_enable = 0
 let g:tagbar_status_func = 'lightline#delphinus#components#tagbar_status'
 
 let g:lightline = {
         \ 'colorscheme': g:lightline_delphinus_colorscheme,
         \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive' ], [ 'filepath' ], [ 'filename', 'currenttag' ] ],
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'gitgutter' ], [ 'filepath' ], [ 'filename', 'currenttag', 'ale_error', 'ale_warning', 'ale_ok' ] ],
         \   'right': [
         \     [ 'lineinfo' ],
         \     [ 'percent' ],
-        \     [ 'ale_error', 'ale_warning', 'ale_ok', 'char_code', 'fileformat', 'fileencoding', 'filetype' ],
+        \     [ 'char_code', 'fileformat', 'fileencoding', 'filetype' ],
         \   ],
         \ },
         \ 'inactive': {
@@ -61,6 +62,7 @@ let g:lightline = {
         \   'lineinfo':     'lightline#delphinus#components#lineinfo',
         \   'percent':      'lightline#delphinus#components#percent',
         \   'currenttag':   'lightline#delphinus#components#currenttag',
+        \   'gitgutter':    'lightline#delphinus#components#gitgutter',
         \ },
         \ 'component_function_visible_condition': {
         \   'mode': 1,
@@ -87,8 +89,9 @@ let g:lightline = {
 augroup LightLineOnALE
   autocmd!
   autocmd User ALELint     call lightline#update()
-  autocmd User ALELintPre  call lightline#delphinus#components#ale_pre()
-  autocmd User ALELintPost call lightline#delphinus#components#ale_post()
+  autocmd User ALEFixPre  call lightline#delphinus#components#ale_pre()
+  autocmd User ALEFixPost call lightline#delphinus#components#ale_post()
+  autocmd User GitGutter   call lightline#delphinus#components#gitgutter_pre()
 augroup end
 
 let &cpoptions = s:save_cpo

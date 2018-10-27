@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-07-13T17:48:45+0900.
+" Last Change: 2018-10-27T09:30:00+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -206,7 +206,7 @@ function! lightline#delphinus#components#percent() abort
 endfunction
 
 function! lightline#delphinus#components#currenttag() abort
-  if &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
+  if !g:lightline_delphinus_tagbar_enable || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   if !get(s:, 'currenttag_init')
@@ -231,4 +231,44 @@ endfunction
 function! lightline#delphinus#components#tagbar_status(current, sort, fname, ...) abort
   let g:lightline.fname = a:fname
   return lightline#statusline(0)
+endfunction
+
+function! lightline#delphinus#components#gitgutter_pre() abort
+  let g:lightline_delphinus_gitgutter_context = get(g:, 'gitgutter_hook_context', {})
+  call lightline#update()
+endfunction
+
+function! lightline#delphinus#components#gitgutter() abort
+  if winwidth(0) < 120
+    return ''
+  endif
+  let ctx = get(g:, 'lightline_delphinus_gitgutter_context', {})
+  let nr = get(ctx, 'bufnr', -9999)
+  if nr == -9999 || nr != bufnr('%')
+    return ''
+  endif
+  let hunks = gitgutter#hunk#hunks(nr)
+  if len(hunks) == 0
+    return ''
+  endif
+  let gitgutter_status = {'added': 0, 'modified': 0, 'removed': 0, 'modified_removed': 0}
+  for [line1, num1, line2, num2] in hunks
+    if num1 == 0
+      let gitgutter_status['added'] += num2
+    elseif num1 < num2
+      let gitgutter_status['added'] += num2 - num1
+      let gitgutter_status['modified'] += num1
+    elseif num1 == num2
+      let gitgutter_status['modified'] += num1
+    elseif num2 == 0
+      let gitgutter_status['removed'] += num1
+    else
+      let gitgutter_status['modified_removed'] += num1 - num2
+    endif
+  endfor
+  return printf('%s %d %s %d %s %d %s %d',
+        \ g:gitgutter_sign_added, gitgutter_status['added'],
+        \ g:gitgutter_sign_modified, gitgutter_status['modified'],
+        \ g:gitgutter_sign_removed, gitgutter_status['removed'],
+        \ g:gitgutter_sign_modified_removed, gitgutter_status['modified_removed'])
 endfunction
