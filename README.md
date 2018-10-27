@@ -123,7 +123,7 @@ let g:ale_statusline_format = [
 
 ## tagbar setting (optional)
 
-lightline-delphinus can detect installed [tagbar][] and show function names on cursor by `tagbar#current()`.
+lightline-delphinus can detect installed [tagbar][] and show function names on cursor by `tagbar#current()`. The info from tagbar will be updated once per second at the maximum.
 
 [tagbar]: https://github.com/majutsushi/tagbar
 
