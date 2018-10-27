@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-10-27T09:30:00+0900.
+" Last Change: 2018-10-27T09:54:55+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -239,7 +239,7 @@ function! lightline#delphinus#components#gitgutter_pre() abort
 endfunction
 
 function! lightline#delphinus#components#gitgutter() abort
-  if winwidth(0) < 120
+  if !g:lightline_delphinus_gitgutter_enable || winwidth(0) < 120
     return ''
   endif
   let ctx = get(g:, 'lightline_delphinus_gitgutter_context', {})
