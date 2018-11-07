@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2018-10-27T09:54:55+0900.
+" Last Change: 2018-11-08T08:29:19+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -124,6 +124,7 @@ function! lightline#delphinus#components#charcode() abort
   if winwidth(0) <= 120
     return ''
   endif
+  let tmp = ''
   " if char on cursor is `Λ̊`, :ascii returns below.
   " <Λ> 923, 16進数 039b, 8進数 1633 < ̊> 778, 16進数 030a, 8進数 1412
   redir => tmp | silent! ascii | redir END
