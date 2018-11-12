@@ -70,7 +70,7 @@ function! lightline#delphinus#components#filename() abort
         \ &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
         \ &filetype ==# 'unite' ? unite#get_status_string() :
         \ &filetype ==# 'denite' ? denite#get_status_sources() :
-        \ &filetype ==# 'fzf' ? 'FZF' :
+        \ &filetype ==# 'fzf' ? get(g:lightline, 'fname', '') :
         \ &filetype ==# 'tagbar' ? get(g:lightline, 'fname', '') :
         \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' !=# lightline#delphinus#components#modified() ? ' ' . lightline#delphinus#components#modified() : '')
