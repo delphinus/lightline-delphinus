@@ -25,7 +25,7 @@ endif
 
 function! lightline#delphinus#components#modified() abort
   return &buftype ==# 'terminal' ? '' :
-        \ &filetype =~# 'help\|vimfiler\|gundo\|tagbar' ? '' :
+        \ &filetype =~# 'help\|vimfiler\|gundo\|fzf\|tagbar' ? '' :
         \ &modified ? s:mo_glyph : &modifiable ? '' :
         \ '-'
 endfunction
@@ -33,7 +33,7 @@ endfunction
 function! lightline#delphinus#components#readonly() abort
   return &buftype ==# 'terminal' ? '' :
         \ &filetype ==# 'help' ? s:help_glyph :
-        \ &filetype !~# 'vimfiler\|gundo\|tagbar' && &readonly ? s:ro_glyph :
+        \ &filetype !~# 'vimfiler\|gundo\|fzf\|tagbar' && &readonly ? s:ro_glyph :
         \ ''
 endfunction
 
@@ -46,7 +46,7 @@ function! lightline#delphinus#components#filepath() abort
     return get(ctx, 'sorters', '')
   endif
   let ro_string = '' !=# lightline#delphinus#components#readonly() ? lightline#delphinus#components#readonly() . ' ' : ''
-  if &filetype ==# 'vimfilter' || &filetype ==# 'unite' || winwidth(0) < 70
+  if &filetype =~# 'vimfilter\|unite\|fzf' || winwidth(0) < 70
     let path_string = ''
   else
     if exists('+shellslash')
@@ -70,6 +70,7 @@ function! lightline#delphinus#components#filename() abort
         \ &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
         \ &filetype ==# 'unite' ? unite#get_status_string() :
         \ &filetype ==# 'denite' ? denite#get_status_sources() :
+        \ &filetype ==# 'fzf' ? 'FZF' :
         \ &filetype ==# 'tagbar' ? get(g:lightline, 'fname', '') :
         \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
         \ ('' !=# lightline#delphinus#components#modified() ? ' ' . lightline#delphinus#components#modified() : '')
@@ -113,6 +114,7 @@ function! lightline#delphinus#components#mode() abort
   return fname =~# 'unite' ? 'Unite' :
         \ fname =~# 'vimfiler' ? 'VimFilter' :
         \ fname =~# '__Gundo__' ? 'Gundo' :
+        \ fname =~# 'fzf' ? 'FZF' :
         \ &filetype ==# 'tagbar' ? 'Tagbar' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
