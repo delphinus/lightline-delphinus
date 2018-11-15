@@ -83,7 +83,11 @@ function! lightline#delphinus#components#fugitive() abort
   endif
   try
     if &filetype !~? 'vimfiler\|gundo\|denite\|tagbar' && exists('*fugitive#head')
-      return s:branch_glyph . fugitive#head()
+      let head = fugitive#head()
+      if head !=? ''
+        let head = s:branch_glyph . head
+      endif
+      return head
     endif
   catch
   endtry
