@@ -19,8 +19,10 @@ endif
 
 if g:lightline_delphinus_use_powerline_glyphs
   let s:ro_glyph = "\ue0a2" " 
+  let s:branch_glyph = "\ue0a0" " 
 else
   let s:ro_glyph = 'RO'
+  let s:branch_glyph = ''
 endif
 
 function! lightline#delphinus#components#modified() abort
@@ -81,7 +83,11 @@ function! lightline#delphinus#components#fugitive() abort
   endif
   try
     if &filetype !~? 'vimfiler\|gundo\|denite\|tagbar' && exists('*fugitive#head')
-      return fugitive#head()
+      let head = fugitive#head()
+      if head !=? ''
+        let head = s:branch_glyph . head
+      endif
+      return head
     endif
   catch
   endtry
