@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-03-07T17:11:28+0900.
+" Last Change: 2019-04-10T15:45:27-0700.
 " =============================================================================
 
 scriptencoding utf-8
@@ -31,12 +31,12 @@ if g:lightline_delphinus_colorscheme !=# 'solarized_improved' && g:lightline_del
   call lightline#error('g:lightline_delphinus_colorscheme must be solarized_improved (default) or nord_improved')
 endif
 
-let g:lightline_delphinus_tagbar_enable = 0
+let g:lightline_delphinus_tagbar_enable = get(g:, 'lightline_delphinus_tagbar_enable', 0)
 let g:tagbar_status_func = 'lightline#delphinus#components#tagbar_status'
 
-let g:lightline_delphinus_gitgutter_enable = 0
+let g:lightline_delphinus_gitgutter_enable = get(g:, 'lightline_delphinus_gitgutter_enable', 0)
 
-let g:lightline = {
+let g:lightline = get(g:, 'lightline', {
         \ 'colorscheme': g:lightline_delphinus_colorscheme,
         \ 'active': {
         \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'gitgutter' ], [ 'filepath' ], [ 'filename', 'currenttag', 'ale_error', 'ale_warning', 'ale_ok' ] ],
@@ -86,7 +86,7 @@ let g:lightline = {
         \ },
         \ 'separator': s:separator,
         \ 'subseparator': s:subseparator,
-        \ }
+        \ })
 
 augroup LightLineOnALE
   autocmd!
