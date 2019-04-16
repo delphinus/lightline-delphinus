@@ -150,3 +150,20 @@ Set `let g:lightline_delphinus_gitgutter_enable = 1` to enable this.
 [vim-gitgutter]: https://github.com/airblade/vim-gitgutter
 
 <img width="708" alt="2018-10-27 10 43 47" src="https://user-images.githubusercontent.com/1239245/47598330-4db88580-d9d5-11e8-93dd-fdf91d52894a.png">
+
+## Contribution
+
+The colorscheme's are formerly generated because the sources are a bit complicated and take long time to be evaluated in Vim.
+
+* source: `autoload/lightline/delphinus/colorscheme/nord_improved.vim`
+* generated: `autoload/lightline/colorscheme/nord_improved.vim`
+
+So you should not edit the colorscheme's directly. You should edit the sources, and run the script to generate.
+
+```sh
+# edit the source
+vim autoload/lightline/delphinus/colorscheme/nord_improved.vim
+# run the script
+# this needs Python 3.6+
+bin/dump.py
+```
