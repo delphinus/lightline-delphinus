@@ -9,8 +9,8 @@ This theme is for [lightline][] that is a statusline plugin for Vim. This has fe
 * Additional components for lightline
   - Support [ALE (Asynchronous Lint Engine)][ale]
   - Support Powerline icons **(optional)**
-  - Support [majutsushi/tagbar][tagbar] for fileformat & filetype **(optional)**
-  - Support [airblade/vim-gitgutter][vim-gitgutter] for fileformat & filetype **(optional)**
+  - Support [majutsushi/tagbar][tagbar] to show function names **(optional)**
+  - Support [airblade/vim-gitgutter][vim-gitgutter] to show diff status **(optional)**
 * Improved colorscheme for lightline to fit with [Solarized][] & [Nord][nord-vim] colorschemes
 
 [lightline]: https://github.com/itchyny/lightline.vim
