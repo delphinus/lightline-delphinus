@@ -7,9 +7,11 @@
 This theme is for [lightline][] that is a statusline plugin for Vim. This has features below.
 
 * Additional components for lightline
-  - Support [ryanoasis/vim-devicons][devicons] for fileformat & filetype
   - Support [ALE (Asynchronous Lint Engine)][ale]
-* Improved colorscheme for lightline to fit with [Solarized][] colorscheme
+  - Support Powerline icons **(optional)**
+  - Support [majutsushi/tagbar][tagbar] for fileformat & filetype **(optional)**
+  - Support [airblade/vim-gitgutter][vim-gitgutter] for fileformat & filetype **(optional)**
+* Improved colorscheme for lightline to fit with [Solarized][] & [Nord][nord-vim] colorschemes
 
 [lightline]: https://github.com/itchyny/lightline.vim
 [devicons]: https://github.com/ryanoasis/vim-devicons
@@ -30,7 +32,7 @@ This theme is for [lightline][] that is a statusline plugin for Vim. This has fe
   <img width="847" alt="2017-11-07 9 17 53" src="https://user-images.githubusercontent.com/1239245/32470819-9e870594-c39d-11e7-8437-d5beb5129592.png">  
   <img width="847" alt="2017-11-07 9 18 05" src="https://user-images.githubusercontent.com/1239245/32470821-a0fcda7e-c39d-11e7-9474-b5af7f62ee39.png">
 
-* For nord ([nord-vim][])
+* For Nord ([nord-vim][])
   <img width="847" alt="2017-11-07 9 19 09" src="https://user-images.githubusercontent.com/1239245/32470849-bd82e332-c39d-11e7-9cb0-2a1c3e567f19.png">  
   <img width="847" alt="2017-11-07 9 19 30" src="https://user-images.githubusercontent.com/1239245/32470853-c1191c6e-c39d-11e7-9c63-f7cabd6fca20.png">  
   <img width="847" alt="2017-11-07 9 19 59" src="https://user-images.githubusercontent.com/1239245/32470856-c2ac361a-c39d-11e7-8b51-236671673c6b.png">  
