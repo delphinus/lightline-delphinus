@@ -49,6 +49,10 @@ function! lightline#delphinus#components#filepath() abort
   endif
   let ro_glyph = lightline#delphinus#components#readonly()
   let ro_string = '' !=# ro_glyph ? ro_glyph . ' ' : ''
+  if get(b:, 'fugitive_type', '') !=# ''
+    let fugitive_status = fugitive#statusline()[1:-2] " remove square brackets: [...]
+    return ro_string . fugitive_status
+  endif
   if &filetype =~# 'vimfilter\|unite\|fzf' || winwidth(0) < 70
     let path_string = ''
   else
