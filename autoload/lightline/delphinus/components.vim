@@ -27,7 +27,7 @@ endif
 
 function! lightline#delphinus#components#modified() abort
   return &buftype ==# 'terminal' ? '' :
-        \ &filetype =~# 'help\|vimfiler\|gundo\|fzf\|tagbar' ? '' :
+        \ &filetype =~# 'help\|vimfiler\|gundo\|fzf\|tagbar\|denite' ? '' :
         \ &modified ? s:mo_glyph : &modifiable ? '' :
         \ '-'
 endfunction
@@ -35,17 +35,16 @@ endfunction
 function! lightline#delphinus#components#readonly() abort
   return &buftype ==# 'terminal' ? '' :
         \ &filetype ==# 'help' ? s:help_glyph :
-        \ &filetype !~# 'vimfiler\|gundo\|fzf\|tagbar' && &readonly ? s:ro_glyph :
+        \ &filetype !~# 'vimfiler\|gundo\|fzf\|tagbar\|denite' && &readonly ? s:ro_glyph :
         \ ''
 endfunction
 
 function! lightline#delphinus#components#filepath() abort
-  if &buftype ==# 'terminal' || &filetype ==# 'tagbar'
+  if &buftype ==# 'terminal' || &filetype ==# 'tagbar' || &filetype ==# 'denite-filter'
     return ''
   endif
   if &filetype ==# 'denite'
-    let ctx = get(b:, 'denite_context', {})
-    return get(ctx, 'sorters', '')
+    return denite#get_status('sources')
   endif
   let ro_glyph = lightline#delphinus#components#readonly()
   let ro_string = '' !=# ro_glyph ? ro_glyph . ' ' : ''
@@ -76,7 +75,8 @@ function! lightline#delphinus#components#filename() abort
   return (&buftype ==# 'terminal' ? has('nvim') ? b:term_title . ' (' . b:terminal_job_pid . ')' : '' :
         \ &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
         \ &filetype ==# 'unite' ? unite#get_status_string() :
-        \ &filetype ==# 'denite' ? denite#get_status_sources() :
+        \ &filetype ==# 'denite' ? denite#get_status('input') :
+        \ &filetype ==# 'denite-filter' ? '' :
         \ &filetype ==# 'fzf' ? get(g:lightline, 'fname', '') :
         \ &filetype ==# 'tagbar' ? get(g:lightline, 'fname', '') :
         \ '' !=# expand('%:t') ? expand('%:t') : '[No Name]') .
@@ -84,11 +84,11 @@ function! lightline#delphinus#components#filename() abort
 endfunction
 
 function! lightline#delphinus#components#fugitive() abort
-  if &buftype ==# 'terminal' || winwidth(0) < 100
+  if &buftype ==# 'terminal' || &filetype =~# 'denite' || winwidth(0) < 100
     return ''
   endif
   try
-    if &filetype !~? 'vimfiler\|gundo\|denite\|tagbar' && exists('*fugitive#head')
+    if &filetype !~? 'vimfiler\|gundo\|tagbar' && exists('*fugitive#head')
       let head = fugitive#head()
       if head !=? ''
         let head = s:branch_glyph . head
@@ -116,16 +116,12 @@ function! lightline#delphinus#components#fileencoding() abort
 endfunction
 
 function! lightline#delphinus#components#mode() abort
-  if &filetype ==# 'denite'
-    let mode = denite#get_status('raw_mode')
-    call lightline#link(tolower(mode[0]))
-    return 'Denite'
-  endif
   let fname = expand('%:t')
   return fname =~# 'unite' ? 'Unite' :
         \ fname =~# 'vimfiler' ? 'VimFilter' :
         \ fname =~# '__Gundo__' ? 'Gundo' :
         \ fname =~# 'fzf' ? 'FZF' :
+        \ &filetype =~# 'denite' ? 'Denite' :
         \ &filetype ==# 'tagbar' ? 'Tagbar' :
         \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
@@ -205,8 +201,8 @@ function! s:ale_string(mode)
 endfunction
 
 function! lightline#delphinus#components#lineinfo() abort
-  return &filetype ==# 'denite' ? denite#get_status_linenr() :
-        \ &filetype ==# 'tagbar' ? '' :
+  return &filetype ==# 'denite' ? printf('%3d/%-2d', line('.'), denite#get_status('line_total')) :
+        \ &filetype ==# 'tagbar' || &filetype ==# 'denite-filter' ? '' :
         \ printf('%3d:%-2d', line('.'), col('.'))
 endfunction
 
@@ -214,9 +210,8 @@ function! lightline#delphinus#components#percent() abort
   if &filetype ==# 'tagbar'
     return ''
   endif
-  let line = &filetype ==# 'denite' ? denite#get_status('line_cursor') : line('.')
   let total = &filetype ==# 'denite' ? denite#get_status('line_total') : line('$')
-  return total ? printf('%d%%', 100 * line / total) : '0%'
+  return total ? printf('%d%%', 100 * line('.') / total) : '0%'
 endfunction
 
 function! lightline#delphinus#components#currenttag() abort
@@ -253,7 +248,7 @@ function! lightline#delphinus#components#gitgutter_pre() abort
 endfunction
 
 function! lightline#delphinus#components#gitgutter() abort
-  if !g:lightline_delphinus_gitgutter_enable || winwidth(0) < 120
+  if !g:lightline_delphinus_gitgutter_enable || $filetype =~# 'denite' || winwidth(0) < 120
     return ''
   endif
   let ctx = get(g:, 'lightline_delphinus_gitgutter_context', {})
