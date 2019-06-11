@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-06-11T21:18:42+0900.
+" Last Change: 2019-06-11T21:36:09+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -177,7 +177,7 @@ function! lightline#delphinus#components#ale_ok() abort
 endfunction
 
 function! s:ale_string(mode)
-  if !exists('*ale#statusline#Count') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
+  if !get(g:, 'loaded_ale') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   if s:ale_linting
@@ -215,7 +215,7 @@ function! lightline#delphinus#components#percent() abort
 endfunction
 
 function! lightline#delphinus#components#currenttag() abort
-  if !g:lightline_delphinus_tagbar_enable || !exists('*tagbar#currenttag') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
+  if !g:lightline_delphinus_tagbar_enable || !get(g:, 'loaded_tagbar') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   let now = localtime()
@@ -237,7 +237,7 @@ function! lightline#delphinus#components#gitgutter_pre() abort
 endfunction
 
 function! lightline#delphinus#components#gitgutter() abort
-  if !g:lightline_delphinus_gitgutter_enable || !exists('*gitgutter#hunk#hunks') || $filetype =~# 'gundo\|fzf\|tagbar\|denite' || winwidth(0) < 120
+  if !g:lightline_delphinus_gitgutter_enable || !get(g:, 'loaded_gitgutter') || $filetype =~# 'gundo\|fzf\|tagbar\|denite' || winwidth(0) < 120
     return ''
   endif
   let ctx = get(g:, 'lightline_delphinus_gitgutter_context', {})
