@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-06-01T16:15:43+0900.
+" Last Change: 2019-06-11T19:47:06+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -177,7 +177,7 @@ function! lightline#delphinus#components#ale_ok() abort
 endfunction
 
 function! s:ale_string(mode)
-  if !exists('g:ale_buffer_info') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
+  if !exists('*ale#statusline#Count') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   if s:ale_linting
