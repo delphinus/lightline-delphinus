@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-06-11T19:47:06+0900.
+" Last Change: 2019-06-11T21:18:42+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -215,18 +215,7 @@ function! lightline#delphinus#components#percent() abort
 endfunction
 
 function! lightline#delphinus#components#currenttag() abort
-  if !g:lightline_delphinus_tagbar_enable || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
-    return ''
-  endif
-  if !get(s:, 'currenttag_init')
-    try
-      let tmp = tagbar#currenttag('%', '', '')
-    catch
-    endtry
-    unlet! tmp
-    let s:currenttag_init = 1
-  endif
-  if !exists('*tagbar#currenttag')
+  if !g:lightline_delphinus_tagbar_enable || !exists('*tagbar#currenttag') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   let now = localtime()
@@ -248,7 +237,7 @@ function! lightline#delphinus#components#gitgutter_pre() abort
 endfunction
 
 function! lightline#delphinus#components#gitgutter() abort
-  if !g:lightline_delphinus_gitgutter_enable || $filetype =~# 'gundo\|fzf\|tagbar\|denite' || winwidth(0) < 120
+  if !g:lightline_delphinus_gitgutter_enable || !exists('*gitgutter#hunk#hunks') || $filetype =~# 'gundo\|fzf\|tagbar\|denite' || winwidth(0) < 120
     return ''
   endif
   let ctx = get(g:, 'lightline_delphinus_gitgutter_context', {})
