@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-06-11T21:36:09+0900.
+" Last Change: 2019-07-01T17:51:37+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -201,9 +201,17 @@ function! s:ale_string(mode)
 endfunction
 
 function! lightline#delphinus#components#lineinfo() abort
-  return &filetype ==# 'denite' ? printf('%3d/%-2d', line('.'), denite#get_status('line_total')) :
-        \ &filetype ==# 'tagbar' || &filetype ==# 'denite-filter' ? '' :
-        \ printf('%3d:%-2d', line('.'), col('.'))
+  if &filetype ==# 'denite'
+    return printf('%3d/%-2d', line('.'), denite#get_status('line_total'))
+  elseif &filetype ==# 'tagbar' || &filetype ==# 'denite-filter'
+    return ''
+  endif
+  let c = col('.')
+  let vc = virtcol('.')
+  if c != vc
+    return printf('%3d:%d-%d', line('.'), c, vc)
+  endif
+  return printf('%3d:%-2d', line('.'), c)
 endfunction
 
 function! lightline#delphinus#components#percent() abort
