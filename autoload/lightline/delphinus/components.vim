@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-08-12T17:46:34+0900.
+" Last Change: 2019-08-12T17:48:41+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -24,6 +24,9 @@ else
   let s:ro_glyph = 'RO'
   let s:branch_glyph = ''
 endif
+
+" s:is_using_dein is used for detecting tagbar is enabled
+let s:is_using_dein = exists('*dein#is_sourced')
 
 function! lightline#delphinus#components#modified() abort
   return &buftype ==# 'terminal' ? '' :
@@ -223,7 +226,7 @@ function! lightline#delphinus#components#percent() abort
 endfunction
 
 function! lightline#delphinus#components#currenttag() abort
-  if !g:lightline_delphinus_tagbar_enable || !get(g:, 'loaded_tagbar') || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
+  if !g:lightline_delphinus_tagbar_enable || !lightline#delphinus#components#is_tagbar_enabled() || &buftype ==# 'terminal' || &filetype =~# 'denite\|tagbar'
     return ''
   endif
   let now = localtime()
@@ -232,6 +235,10 @@ function! lightline#delphinus#components#currenttag() abort
     let s:currenttag_last_seen = tagbar#currenttag('%s', '')
   endif
   return get(s:, 'currenttag_last_seen', '')
+endfunction
+
+function! lightline#delphinus#components#is_tagbar_enabled() abort
+  return s:is_using_dein ? dein#is_sourced('tagbar') : get(g:, 'loaded_tagbar')
 endfunction
 
 function! lightline#delphinus#components#tagbar_status(current, sort, fname, ...) abort
