@@ -55,6 +55,7 @@ call dein#add('itchyny/lightline.vim')
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('w0rp/ale')
 call dein#add('majutsushi/tagbar')
+call dein#add('airblade/vim-gitgutter')
 ```
 
 #### TOML setting
