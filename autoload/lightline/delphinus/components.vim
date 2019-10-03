@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-08-12T17:48:41+0900.
+" Last Change: 2019-10-03T17:36:05+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -284,4 +284,19 @@ function! lightline#delphinus#components#gitgutter() abort
         \ g:gitgutter_sign_modified, gitgutter_status['modified'],
         \ g:gitgutter_sign_removed, gitgutter_status['removed'],
         \ g:gitgutter_sign_modified_removed, gitgutter_status['modified_removed'])
+endfunction
+
+function! lightline#delphinus#components#signify() abort
+  if !g:lightline_delphinus_signify_enable || !get(g:, 'loaded_signify') || &filetype =~# 'gundo\|fzf\|tagbar\|denite' || winwidth(0) < 120
+    return ''
+  endif
+  let [added, modified, removed] = sy#repo#get_stats()
+  " this means signify does not recognize diffs.
+  if added == -1
+    return ''
+  endif
+  return printf('%s %d %s %d %s %d',
+        \ g:signify_sign_add, added,
+        \ g:signify_sign_change, modified,
+        \ g:signify_sign_delete, removed)
 endfunction
