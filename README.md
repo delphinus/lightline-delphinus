@@ -10,7 +10,7 @@ This theme is for [lightline][] that is a statusline plugin for Vim. This has fe
   - Support [ALE (Asynchronous Lint Engine)][ale]
   - Support Powerline icons **(optional)**
   - Support [majutsushi/tagbar][tagbar] to show function names **(optional)**
-  - Support [airblade/vim-gitgutter][vim-gitgutter] to show diff status **(optional)**
+  - Support [airblade/vim-gitgutter][vim-gitgutter] / [mhinz/vim-signify][vim-signify] to show diff status **(optional)**
 * Improved colorscheme for lightline to fit with [Solarized][] & [Nord][nord-vim] colorschemes
 
 [lightline]: https://github.com/itchyny/lightline.vim
@@ -55,6 +55,8 @@ call dein#add('itchyny/lightline.vim')
 call dein#add('ryanoasis/vim-devicons')
 call dein#add('w0rp/ale')
 call dein#add('majutsushi/tagbar')
+call dein#add('airblade/vim-gitgutter')
+call dein#add('mhinz/vim-signify')
 ```
 
 #### TOML setting
@@ -152,6 +154,16 @@ Set `let g:lightline_delphinus_gitgutter_enable = 1` to enable this.
 [vim-gitgutter]: https://github.com/airblade/vim-gitgutter
 
 <img width="708" alt="2018-10-27 10 43 47" src="https://user-images.githubusercontent.com/1239245/47598330-4db88580-d9d5-11e8-93dd-fdf91d52894a.png">
+
+## signify setting (optional)
+
+lightline-delphinus can detect installed [vim-signify][] and show diff info calculated from `sy#repo#get_stats()`.
+
+Set `let g:lightline_delphinus_signify_enable = 1` to enable this.
+
+[vim-signify]: https://github.com/mhinz/vim-signify
+
+<img width="624" alt="スクリーンショット 0001-10-03 17 58 40" src="https://user-images.githubusercontent.com/1239245/66113298-7692c300-e607-11e9-821d-597bbda754f9.png">
 
 ## Contribution
 

@@ -2,7 +2,7 @@
 " Filename: plugin/lightline_delphinus.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-04-10T15:45:27-0700.
+" Last Change: 2019-10-03T17:36:26+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -36,10 +36,12 @@ let g:tagbar_status_func = 'lightline#delphinus#components#tagbar_status'
 
 let g:lightline_delphinus_gitgutter_enable = get(g:, 'lightline_delphinus_gitgutter_enable', 0)
 
+let g:lightline_delphinus_signify_enable = get(g:, 'lightline_delphinus_signify_enable', 0)
+
 let g:lightline = get(g:, 'lightline', {
         \ 'colorscheme': g:lightline_delphinus_colorscheme,
         \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'gitgutter' ], [ 'filepath' ], [ 'filename', 'currenttag', 'ale_error', 'ale_warning', 'ale_ok' ] ],
+        \   'left': [ [ 'mode', 'paste' ], [ 'fugitive', 'gitgutter', 'signify' ], [ 'filepath' ], [ 'filename', 'currenttag', 'ale_error', 'ale_warning', 'ale_ok' ] ],
         \   'right': [
         \     [ 'lineinfo' ],
         \     [ 'percent' ],
@@ -65,6 +67,7 @@ let g:lightline = get(g:, 'lightline', {
         \   'percent':      'lightline#delphinus#components#percent',
         \   'currenttag':   'lightline#delphinus#components#currenttag',
         \   'gitgutter':    'lightline#delphinus#components#gitgutter',
+        \   'signify':      'lightline#delphinus#components#signify',
         \ },
         \ 'component_function_visible_condition': {
         \   'mode': 1,
@@ -90,11 +93,12 @@ let g:lightline = get(g:, 'lightline', {
 
 augroup LightLineOnALE
   autocmd!
-  autocmd User ALEFixPre  call lightline#delphinus#components#ale_pre()
-  autocmd User ALEFixPost call lightline#delphinus#components#ale_post()
+  autocmd User ALEFixPre   call lightline#delphinus#components#ale_pre()
+  autocmd User ALEFixPost  call lightline#delphinus#components#ale_post()
   autocmd User ALELintPre  call lightline#delphinus#components#ale_pre()
   autocmd User ALELintPost call lightline#delphinus#components#ale_post()
   autocmd User GitGutter   call lightline#delphinus#components#gitgutter_pre()
+  autocmd User Signify     call lightline#delphinus#components#signify()
 augroup end
 
 let &cpoptions = s:save_cpo
