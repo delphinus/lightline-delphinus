@@ -90,8 +90,8 @@ let g:lightline = get(g:, 'lightline', {
 
 augroup LightLineOnALE
   autocmd!
-  autocmd User ALEFixPre  call lightline#delphinus#components#ale_pre()
-  autocmd User ALEFixPost call lightline#delphinus#components#ale_post()
+  autocmd User ALEFixPre   call lightline#delphinus#components#ale_pre()
+  autocmd User ALEFixPost  call lightline#delphinus#components#ale_post()
   autocmd User ALELintPre  call lightline#delphinus#components#ale_pre()
   autocmd User ALELintPost call lightline#delphinus#components#ale_post()
   autocmd User GitGutter   call lightline#delphinus#components#gitgutter_pre()
