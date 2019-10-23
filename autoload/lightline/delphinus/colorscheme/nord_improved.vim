@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/colorscheme/nord_improved.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-04-16T20:28:41+0900.
+" Last Change: 2019-10-23T22:11:07+0900.
 " =============================================================================
 
 let s:nord0 = ['#2E3440', 0 ]
@@ -93,6 +93,8 @@ let s:p.visual.right    = s:visual[1:2] + s:visual[4:4]
 let s:p.terminal.right  = s:terminal[1:2] + s:terminal[4:4]
 
 let s:p.normal.middle   = [ [ s:nord3, s:nord1 ] ]
+" s:p.inactive.middle[1] will be overwritten to s:nord1 when
+" g:nord_uniform_status_lines == 1. See bin/dump.py
 let s:p.inactive.middle = [ [ s:nord2, s:nord0 ] ]
 let s:p.insert.middle   = s:insert[5:5]
 let s:p.replace.middle  = s:replace[5:5]
