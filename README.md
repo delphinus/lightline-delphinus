@@ -15,7 +15,7 @@ This theme is for [lightline][] that is a statusline plugin for Vim. This has fe
 
 [lightline]: https://github.com/itchyny/lightline.vim
 [devicons]: https://github.com/ryanoasis/vim-devicons
-[ale]: https://github.com/w0rp/ale
+[ale]: https://github.com/dense-analysis/ale
 [Solarized]: http://ethanschoonover.com/solarized/vim-colors-solarized
 
 ## Themes
@@ -53,7 +53,7 @@ call dein#add('itchyny/lightline.vim')
 
 " optional
 call dein#add('ryanoasis/vim-devicons')
-call dein#add('w0rp/ale')
+call dein#add('dense-analysis/ale')
 call dein#add('majutsushi/tagbar')
 call dein#add('airblade/vim-gitgutter')
 call dein#add('mhinz/vim-signify')
@@ -73,7 +73,7 @@ repo = 'itchyny/lightline.vim'
 repo = 'ryanoasis/vim-devicons'
 
 [[plugins]]
-repo = 'w0rp/ale'
+repo = 'dense-analysis/ale'
 
 [[plugins]]
 repo = 'majutsushi/tagbar'
