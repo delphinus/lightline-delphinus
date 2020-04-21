@@ -2,7 +2,7 @@
 " Filename: autoload/lightline/delphinus/components.vim
 " Author: delphinus
 " License: MIT License
-" Last Change: 2019-10-03T17:36:05+0900.
+" Last Change: 2020-04-21T18:42:08+0900.
 " =============================================================================
 
 scriptencoding utf-8
@@ -91,7 +91,7 @@ function! lightline#delphinus#components#fugitive() abort
     return ''
   endif
   try
-    if &filetype !~? 'vimfiler\|gundo\|tagbar' && exists('*fugitive#head')
+    if &filetype !~? 'vimfiler\|gundo\|tagbar' && get(g:, 'loaded_fugitive')
       let head = fugitive#head()
       if head !=? ''
         let head = s:branch_glyph . head
