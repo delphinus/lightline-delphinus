@@ -76,6 +76,8 @@ endfunction
 
 function! lightline#delphinus#components#filename() abort
   return (&buftype ==# 'terminal' ? has('nvim') ? b:term_title . ' (' . b:terminal_job_pid . ')' : '' :
+        \ &buftype ==# 'quickfix' ? (getwininfo(win_getid())[0].loclist ? '[Location List] ' : '[Quick Fix] ')
+        \                                         . get(w:, 'quickfix_title', '') :
         \ &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
         \ &filetype ==# 'unite' ? unite#get_status_string() :
         \ &filetype ==# 'denite' ? denite#get_status('sources') :
