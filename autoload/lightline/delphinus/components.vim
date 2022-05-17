@@ -94,7 +94,7 @@ function! lightline#delphinus#components#fugitive() abort
   endif
   try
     if &filetype !~? 'vimfiler\|gundo\|tagbar' && get(g:, 'loaded_fugitive')
-      let head = fugitive#head()
+      let head = FugitiveHead()
       if head !=? ''
         let head = s:branch_glyph . head
       endif
